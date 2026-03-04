@@ -37,8 +37,6 @@
   },
   "files": [
     "lib/",
-    "examples/",
-    "assets/",
     "README.md",
     "LICENSE"
   ],
