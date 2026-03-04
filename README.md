@@ -5,7 +5,7 @@
 [![CI](https://github.com/attestium/attestium/actions/workflows/ci.yml/badge.svg)](https://github.com/attestium/attestium/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/attestium.svg)](https://badge.fury.io/js/attestium)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/node/v/attestium.svg)](https://nodejs.org/)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
 [![Security Audit](https://img.shields.io/badge/security-audited-green.svg)](https://github.com/attestium/attestium/actions)
 [![TPM 2.0](https://img.shields.io/badge/TPM-2.0-blue.svg)](https://trustedcomputinggroup.org/)
 
