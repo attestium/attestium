@@ -9,7 +9,7 @@
 [![Security Audit](https://img.shields.io/badge/security-audited-green.svg)](https://github.com/attestium/attestium/actions)
 [![TPM 2.0](https://img.shields.io/badge/TPM-2.0-blue.svg)](https://trustedcomputinggroup.org/)
 
-📄 **[Read the Technical Whitepaper](./attestium-whitepaper.pdf)** — 19 pages covering our architecture, security model, TPM 2.0 integration, and adoption roadmap.
+📄 **[Read the Technical Whitepaper](./attestium-whitepaper.pdf)** — 16 pages covering our architecture, security model, TPM 2.0 integration, and adoption roadmap.
 
 > **Element of Attestation** - Runtime code verification and integrity monitoring for Node.js applications
 

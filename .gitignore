@@ -7,12 +7,13 @@
 .idea
 .nyc_output
 .vscode
+_site
 coverage
 node_modules
 package-lock.json
 yarn.lock
-pnpm-lock.yaml
 Thumbs.db
 tmp/
 temp/
 mermaid-filter.err
+_site

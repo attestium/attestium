@@ -8,7 +8,7 @@ pdf-mac:
 		--from=markdown+tex_math_single_backslash+tex_math_dollars+raw_tex \
 		--to=latex \
 		--filter mermaid-filter \
-	  --citeproc \
+		$$(pandoc --citeproc /dev/null 2>/dev/null && echo --citeproc || echo --filter pandoc-citeproc) \
 		--bibliography=assets/bibliography.bib \
 		--csl=assets/ieee.csl \
 		--variable=fontsize=11pt \
@@ -35,7 +35,7 @@ pdf:
 		--from=markdown+tex_math_single_backslash+tex_math_dollars+raw_tex \
 		--to=latex \
 		--filter mermaid-filter \
-		--filter pandoc-citeproc \
+		$$(pandoc --citeproc /dev/null 2>/dev/null && echo --citeproc || echo --filter pandoc-citeproc) \
 		--bibliography=assets/bibliography.bib \
 		--csl=assets/ieee.csl \
 		--variable=fontsize=11pt \
@@ -58,10 +58,11 @@ latex:
 	PUPPETEER_EXECUTABLE_PATH=$$(which chromium-browser || which chromium || which google-chrome) \
 	pandoc content/*.md \
 		--resource-path=.:./assets:./content \
+		--pdf-engine=xelatex \
 		--from=markdown+tex_math_single_backslash+tex_math_dollars+raw_tex \
 		--to=latex \
 		--filter mermaid-filter \
-		--filter pandoc-citeproc \
+		$$(pandoc --citeproc /dev/null 2>/dev/null && echo --citeproc || echo --filter pandoc-citeproc) \
 		--bibliography=assets/bibliography.bib \
 		--csl=assets/ieee.csl \
 		--standalone \
