@@ -1,15 +1,25 @@
 # Attestium
 
-![Attestium Logo](./assets/logo.png)
+![Attestium Logo](./assets/avatar.png)
 
-[![Node.js CI](https://github.com/attestium/attestium/workflows/CI/badge.svg)](https://github.com/attestium/attestium/actions)
+[![CI](https://github.com/attestium/attestium/actions/workflows/ci.yml/badge.svg)](https://github.com/attestium/attestium/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/attestium.svg)](https://badge.fury.io/js/attestium)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/node/v/attestium.svg)](https://nodejs.org/)
 [![Security Audit](https://img.shields.io/badge/security-audited-green.svg)](https://github.com/attestium/attestium/actions)
 [![TPM 2.0](https://img.shields.io/badge/TPM-2.0-blue.svg)](https://trustedcomputinggroup.org/)
 
+📄 **[Read the Technical Whitepaper](./attestium-whitepaper.pdf)** — 19 pages covering our architecture, security model, TPM 2.0 integration, and adoption roadmap.
+
 > **Element of Attestation** - Runtime code verification and integrity monitoring for Node.js applications
+
+<a href="https://forwardemail.net">
+  <img src="https://forwardemail.net/img/logo-square.svg" width="100" alt="Forward Email">
+</a>
+
+**Attestium is a project by [Forward Email](https://forwardemail.net) – the 100% open-source, privacy-focused email service.**
+
+We created Attestium to provide transparent, hardware-backed proof of our own server-side code integrity. We believe in open, verifiable systems, and Attestium is our contribution to a more trustworthy internet.
 
 ## 🧪 **What is Attestium?**
 
@@ -18,29 +28,31 @@ Attestium is a **runtime code verification and integrity monitoring library** th
 ### **Core Concept: Element of Attestation**
 
 Just as chemical elements have unique properties and atomic structures, Attestium provides:
-- **Symbol**: `At` (for Attestation)
-- **Atomic Properties**: Stable verification states, tamper-reactive bonds
-- **Chemical Reactions**: Cryptographic verification processes
-- **Molecular Structure**: File checksums linked by cryptographic bonds
+
+* **Symbol**: `At` (for Attestation)
+* **Atomic Properties**: Stable verification states, tamper-reactive bonds
+* **Chemical Reactions**: Cryptographic verification processes
+* **Molecular Structure**: File checksums linked by cryptographic bonds
 
 ## 🎯 **Why Attestium Exists**
 
 ### **The Problem: Trust in Distributed Systems**
 
 In today's world of cloud computing and distributed systems, users need to trust that:
-- The code running on servers matches what's published in repositories
-- No unauthorized modifications have been made to running applications
-- Third parties can independently verify system integrity
-- Changes to code are immediately detectable
+
+* The code running on servers matches what's published in repositories
+* No unauthorized modifications have been made to running applications
+* Third parties can independently verify system integrity
+* Changes to code are immediately detectable
 
 ### **Research Background**
 
 Attestium was developed based on extensive research into existing solutions and their limitations. This research was inspired by:
 
-- **[Forward Email Technical Whitepaper](https://forwardemail.net/technical-whitepaper.pdf)** - Requirements for transparent, auditable email infrastructure
-- **[Mullvad System Transparency](https://mullvad.net/media/system-transparency-rev4.pdf)** - Approaches to system transparency and verification
+* **[Forward Email Technical Whitepaper](https://forwardemail.net/technical-whitepaper.pdf)** - Requirements for transparent, auditable email infrastructure
+* **[Mullvad System Transparency](https://mullvad.net/media/system-transparency-rev4.pdf)** - Approaches to system transparency and verification
 
-> [!NOTE]
+> \[!NOTE]
 > **Research Foundation**: Attestium addresses the specific need for runtime code verification that emerged from Forward Email's commitment to transparency and Mullvad's pioneering work in system transparency.
 
 ## 🔍 **Comprehensive Analysis of Existing Solutions**
@@ -49,7 +61,7 @@ Before developing Attestium, we conducted extensive research into existing verif
 
 | **Solution** | **Primary Purpose** | **Runtime Verification** | **Third-Party APIs** | **Hardware Requirements** | **Complexity** | **Cost** | **Node.js Integration** | **Application Focus** | **Continuous Monitoring** | **Description** | **Notes** |
 |----------|----------|---------------------|------------------|-------------------|---------------------|------|-------------------|------------------|---------------------|-------------|-------|
-| **[Attestium](https://github.com/forwardemail/attestium)** | Runtime Verification | ✅ Yes | ✅ Yes | ✅ TPM 2.0 Optional | 🟢 Low | 🟢 Free | ✅ Native | ✅ Yes | ✅ Yes ([Audit Status](https://auditstatus.com)) | Hardware-backed runtime code verification for Node.js applications with TPM 2.0 integration | Our solution - addresses gaps in existing tools with hardware security |
+| **[Attestium](https://github.com/attestium/attestium)** | Runtime Verification | ✅ Yes | ✅ Yes | ✅ TPM 2.0 Required | 🟢 Low | 🟢 Free | ✅ Native | ✅ Yes | ✅ Yes ([Audit Status](https://auditstatus.com)) | Hardware-backed runtime code verification for Node.js applications with TPM 2.0 integration | Our solution - addresses gaps in existing tools with hardware security |
 | **[SigSum](https://www.sigsum.org/)** | Transparency Logging | ❌ No | ✅ Yes | ❌ No | 🟡 Medium | 🟢 Free | ❌ No | ❌ No | ⚠️ Log Only | Minimal design for public transparency logs of signed checksums with witness verification | Excellent for transparency but no runtime verification |
 | **[SigStore](https://www.sigstore.dev/)** | Code Signing | ❌ No | ⚠️ Limited | ❌ No | 🟡 Medium | 🟢 Free | ⚠️ Limited | ❌ No | ❌ No | Keyless code signing for software supply chain security with transparency logs | Build-time signing only, no runtime capabilities |
 | **[Keylime](https://keylime.dev/)** | Remote Attestation | ⚠️ Limited | ✅ Yes | ✅ TPM Required | 🔴 High | 🟢 Free | ❌ No | ⚠️ Limited | ⚠️ Limited | Remote attestation framework using TPM for hardware-backed verification | Infrastructure-focused, requires specialized hardware |
@@ -81,73 +93,86 @@ Before developing Attestium, we conducted extensive research into existing verif
 Based on our comprehensive analysis, we identified critical gaps that existing solutions couldn't address for our specific requirements:
 
 #### **1. Runtime Application Verification Gap**
-- **Problem**: Most solutions focus on build-time, deployment-time, or infrastructure-level verification
-- **Impact**: Cannot detect runtime tampering or code injection attacks
-- **Attestium Solution**: Continuous runtime monitoring with real-time verification
+
+* **Problem**: Most solutions focus on build-time, deployment-time, or infrastructure-level verification
+* **Impact**: Cannot detect runtime tampering or code injection attacks
+* **Attestium Solution**: Continuous runtime monitoring with real-time verification
 
 #### **2. Third-Party Verification API Gap**
-- **Problem**: Existing solutions lack standardized APIs for external verification
-- **Impact**: Difficult for auditors to independently verify system integrity
-- **Attestium Solution**: RESTful APIs with nonce-based challenge-response protocols
+
+* **Problem**: Existing solutions lack standardized APIs for external verification
+* **Impact**: Difficult for auditors to independently verify system integrity
+* **Attestium Solution**: RESTful APIs with nonce-based challenge-response protocols
 
 #### **3. Developer Experience Gap**
-- **Problem**: Hardware-based solutions require specialized knowledge and infrastructure
-- **Impact**: High barrier to adoption for typical web applications
-- **Attestium Solution**: Simple npm package with minimal configuration
+
+* **Problem**: Hardware-based solutions require specialized knowledge and infrastructure
+* **Impact**: High barrier to adoption for typical web applications
+* **Attestium Solution**: Simple npm package with software fallback for development
 
 #### **4. Node.js Ecosystem Gap**
-- **Problem**: Most solutions are language-agnostic or focused on other platforms
-- **Impact**: Poor integration with Node.js applications and workflows
-- **Attestium Solution**: Native Node.js integration with runtime hooks
+
+* **Problem**: Most solutions are language-agnostic or focused on other platforms
+* **Impact**: Poor integration with Node.js applications and workflows
+* **Attestium Solution**: Native Node.js integration with runtime hooks
 
 #### **5. Cost and Complexity Gap**
-- **Problem**: Enterprise solutions are expensive; hardware solutions are complex
-- **Impact**: Unsuitable for many applications and organizations
-- **Attestium Solution**: Free, open-source, software-only implementation
+
+* **Problem**: Enterprise solutions are expensive; hardware solutions are complex
+* **Impact**: Unsuitable for many applications and organizations
+* **Attestium Solution**: Free, open-source, software-only implementation
 
 #### **6. Granular Monitoring Gap**
-- **Problem**: File integrity tools monitor files; application tools monitor performance
-- **Impact**: No solution provides granular application code verification
-- **Attestium Solution**: File categorization with application-aware monitoring
+
+* **Problem**: File integrity tools monitor files; application tools monitor performance
+* **Impact**: No solution provides granular application code verification
+* **Attestium Solution**: File categorization with application-aware monitoring
 
 #### **7. Continuous Verification Gap**
-- **Problem**: Most solutions provide point-in-time verification
-- **Impact**: Cannot detect tampering between verification intervals
-- **Attestium Solution**: Continuous background verification with configurable intervals
+
+* **Problem**: Most solutions provide point-in-time verification
+* **Impact**: Cannot detect tampering between verification intervals
+* **Attestium Solution**: Continuous background verification with configurable intervals
 
 ## 🧪 **Attestium's Unique Approach**
 
 Attestium addresses these gaps by providing:
 
 ### **✅ Runtime Code Verification**
-- Continuous monitoring of running application code
-- Real-time detection of unauthorized modifications
-- In-memory integrity checking capabilities
+
+* Continuous monitoring of running application code
+* Real-time detection of unauthorized modifications
+* In-memory integrity checking capabilities
 
 ### **✅ Third-Party Verification APIs**
-- RESTful APIs for external verification
-- Nonce-based challenge-response protocols
-- Cryptographically signed verification reports
+
+* RESTful APIs for external verification
+* Nonce-based challenge-response protocols
+* Cryptographically signed verification reports
 
 ### **✅ Developer-Friendly Design**
-- Simple npm package installation
-- Minimal configuration requirements
-- Integration with existing Node.js applications
+
+* Simple npm package installation
+* Minimal configuration requirements
+* Integration with existing Node.js applications
 
 ### **✅ Granular File Categorization**
-- Intelligent categorization of source code, tests, configuration, and dependencies
-- Customizable include/exclude patterns
-- Git integration for baseline establishment
+
+* Intelligent categorization of source code, tests, configuration, and dependencies
+* Customizable include/exclude patterns
+* Git integration for baseline establishment
 
 ### **✅ Cryptographic Proof Generation**
-- SHA-256 checksums for all monitored files
-- Signed verification reports
-- Tamper-evident audit trails
+
+* SHA-256 checksums for all monitored files
+* Signed verification reports
+* Tamper-evident audit trails
 
 ### **✅ Modern Workflow Integration**
-- Git commit hash tracking
-- CI/CD pipeline integration
-- Cosmiconfig-based configuration management
+
+* Git commit hash tracking
+* CI/CD pipeline integration
+* Cosmiconfig-based configuration management
 
 ## 🔒 **Tamper-Proofing and Security Considerations**
 
@@ -160,37 +185,43 @@ One of the most significant challenges in software verification is preventing ru
 Attestium employs several innovative approaches to address runtime tampering:
 
 #### **1. Tamper-Resistant Memory Protection**
-- **VM-Based Isolation**: Critical verification logic runs in isolated VM contexts
-- **Proxy Protection**: Function interception prevents runtime modification of verification methods
-- **Original Function Capture**: Core JavaScript functions are captured before they can be overridden
+
+* **VM-Based Isolation**: Critical verification logic runs in isolated VM contexts
+* **Proxy Protection**: Function interception prevents runtime modification of verification methods
+* **Original Function Capture**: Core JavaScript functions are captured before they can be overridden
 
 #### **2. External Validation Network**
-- **GitHub Release Verification**: Compares local code against signed GitHub releases
-- **Multi-Source Validation**: Cross-references multiple trusted external sources
-- **Distributed Challenge System**: External services provide unpredictable validation challenges
+
+* **GitHub Release Verification**: Compares local code against signed GitHub releases
+* **Multi-Source Validation**: Cross-references multiple trusted external sources
+* **Distributed Challenge System**: External services provide unpredictable validation challenges
 
 #### **3. Continuous Integrity Monitoring**
-- **Real-Time Checksums**: Continuous validation of file and memory integrity
-- **Behavioral Analysis**: Monitors for suspicious modification patterns
-- **Audit Trail**: Tamper-evident logging of all verification activities
-- **[Audit Status Integration](https://auditstatus.com)**: Enterprise-grade continuous monitoring with automated server auditing, webhook notifications, and TPM-backed verification
+
+* **Real-Time Checksums**: Continuous validation of file and memory integrity
+* **Behavioral Analysis**: Monitors for suspicious modification patterns
+* **Audit Trail**: Tamper-evident logging of all verification activities
+* **[Audit Status Integration](https://auditstatus.com)**: Enterprise-grade continuous monitoring with automated server auditing, webhook notifications, and TPM-backed verification
 
 ### **Limitations and Considerations**
 
 While Attestium provides significant protection against tampering, it's important to understand the fundamental limitations of software-only solutions:
 
 #### **The Verification Paradox**
-- **Core Challenge**: How do you prove integrity when an attacker controls the verification system?
-- **Mitigation**: External validation and distributed verification reduce single points of failure
-- **Reality**: Perfect tamper-proofing may require hardware-based solutions (TPM, HSM, etc.)
+
+* **Core Challenge**: How do you prove integrity when an attacker controls the verification system?
+* **Mitigation**: External validation and distributed verification reduce single points of failure
+* **Reality**: Perfect tamper-proofing may require hardware-based solutions (TPM, HSM, etc.)
 
 #### **Practical Security Model**
+
 Attestium is designed to:
-- ✅ **Detect casual tampering** and unauthorized modifications
-- ✅ **Raise the bar significantly** for sophisticated attacks
-- ✅ **Provide audit trails** for forensic analysis
-- ✅ **Enable external verification** by independent parties
-- ⚠️ **Cannot prevent** determined attackers with root access and unlimited time
+
+* ✅ **Detect casual tampering** and unauthorized modifications
+* ✅ **Raise the bar significantly** for sophisticated attacks
+* ✅ **Provide audit trails** for forensic analysis
+* ✅ **Enable external verification** by independent parties
+* ⚠️ **Cannot prevent** determined attackers with root access and unlimited time
 
 ### **Best Practices for Maximum Security**
 
@@ -206,7 +237,7 @@ Attestium is designed to:
 
 Attestium **requires TPM 2.0** for production deployments where maximum security is needed. While Attestium can operate in software-only mode for development and testing, **TPM 2.0 integration is essential** for addressing the fundamental limitations of software-only verification systems.
 
-> [!IMPORTANT]
+> \[!IMPORTANT]
 > **TPM 2.0 Requirement**: For production environments handling sensitive data or requiring regulatory compliance, Attestium **must** be deployed with TPM 2.0 hardware support. Software-only mode should only be used for development, testing, or non-critical applications.
 
 ### **The Fundamental Problem: Software-Only Verification Limits**
@@ -215,1043 +246,157 @@ Attestium **requires TPM 2.0** for production deployments where maximum security
 
 When running in software-only mode, Attestium is vulnerable to several sophisticated attack vectors:
 
-1. **Root-Level Memory Manipulation**
-   - Attackers with root access can directly modify process memory
-   - Critical verification functions can be overwritten in RAM
-   - Cryptographic keys stored in software can be extracted
+* **Runtime Patching**: An attacker with root access can modify the Node.js runtime or kernel to bypass Attestium's checks.
+* **Memory Manipulation**: Direct memory access can alter verification logic or cryptographic keys.
+* **Filesystem Tampering**: An attacker can modify files on disk and then intercept filesystem calls to return the original content to Attestium.
+* **Verification Bypass**: The entire verification process can be mocked or disabled by a sufficiently privileged attacker.
 
-2. **Hypervisor-Level Attacks**
-   - Virtual machine introspection can bypass software protections
-   - VM memory can be paused, modified, and resumed
-   - Host-level attackers can manipulate guest verification processes
+#### **How TPM 2.0 Solves These Problems**
 
-3. **Time-of-Check vs Time-of-Use (TOCTOU) Attacks**
-   - Files can be modified between verification and execution
-   - Verification results can be cached and replayed
-   - Race conditions in verification timing can be exploited
+TPM 2.0 provides a hardware root of trust that mitigates these attacks:
 
-4. **System Call Interception**
-   - Critical functions like `fs.readFile` and `crypto.createHash` can be hooked
-   - File system operations can be redirected to malicious content
-   - Network requests for external validation can be intercepted
-
-5. **Boot-Time Compromise**
-   - Malicious code can be injected during system startup
-   - Verification baseline can be established with already-compromised code
-   - No way to verify the integrity of the verification system itself
-
-### **How TPM 2.0 Solves These Problems**
-
-#### **Hardware Root of Trust**
-
-TPM 2.0 provides a **hardware root of trust** that cannot be compromised by software attacks:
-
-```javascript
-const attestium = new Attestium({
-  enableTpm: true,  // REQUIRED for production
-  tpm: {
-    keyContext: 'attestium-production.ctx',
-    sealedDataPath: 'attestium-sealed.dat',
-    pcrList: [0, 1, 2, 3, 7]  // Boot integrity measurements
-  }
-});
-
-// Hardware-backed verification that cannot be tampered with
-const hardwareAttestation = await attestium.generateHardwareAttestation(nonce);
-```
-
-#### **Cryptographic Proof of System State**
-
-TPM 2.0 enables Attestium to provide **cryptographic proof** that:
-- The system booted with verified firmware and OS
-- No unauthorized modifications occurred during boot
-- Verification keys are protected by hardware
-- Attestation quotes are signed by tamper-resistant hardware
-
-#### **Sealed Storage Protection**
-
-Critical verification data is **sealed to specific system states**:
-
-```javascript
-// Seal verification baseline to current system state
-const sealedPath = await attestium.sealVerificationData({
-  baselineChecksums: report.checksums,
-  trustedModules: report.modules,
-  timestamp: new Date().toISOString()
-}, [0, 1, 2, 3]);  // PCR values that must match for unsealing
-
-// Data can only be unsealed if system state hasn't changed
-const unsealed = await attestium.unsealVerificationData();
-```
-
-#### **Remote Attestation Capabilities**
-
-TPM 2.0 enables **remote attestation** where external parties can cryptographically verify:
-- The authenticity of the TPM hardware
-- The integrity of the boot process
-- The current system configuration
-- The validity of verification reports
-
-### **Security Benefits of TPM 2.0 Integration**
-
-| **Security Aspect** | **Software-Only Mode** | **TPM 2.0 Mode** |
-|---------------------|------------------------|-------------------|
-| **Root Access Protection** | ❌ Vulnerable to root compromise | ✅ Hardware-protected keys and operations |
-| **Memory Tampering** | ❌ Process memory can be modified | ✅ Critical operations in hardware |
-| **Key Storage** | ❌ Keys stored in software | ✅ Keys protected by TPM hardware |
-| **Boot Integrity** | ❌ No boot verification | ✅ Measured boot with PCR values |
-| **Remote Verification** | ⚠️ Limited to software signatures | ✅ Hardware-backed attestation quotes |
-| **Replay Attacks** | ⚠️ Possible with cached results | ✅ Fresh nonces required for each attestation |
-| **System State Binding** | ❌ No hardware binding | ✅ Sealed to specific system configuration |
-| **Regulatory Compliance** | ❌ Insufficient for most standards | ✅ Meets FIPS 140-2, Common Criteria requirements |
+* **Hardware-Protected Keys**: Cryptographic keys are stored in the TPM chip and cannot be extracted.
+* **Measured Boot**: The TPM measures the entire boot process, creating a cryptographic record of the system state.
+* **Sealed Storage**: Data can be encrypted and "sealed" to a specific system state. It can only be unsealed if the system is in the exact same state.
+* **Remote Attestation**: The TPM can provide a signed quote of its internal state, allowing a remote party to verify the system's integrity.
 
 ### **TPM 2.0 Architecture in Attestium**
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Attestium Application                    │
-├─────────────────────────────────────────────────────────────┤
-│  Software Verification  │  TPM 2.0 Hardware Integration    │
-│  • File checksums       │  • Hardware random generation    │
-│  • Runtime monitoring   │  • Cryptographic attestation     │
-│  • External validation  │  • Sealed storage                │
-│  • Tamper detection     │  • PCR measurements              │
-├─────────────────────────────────────────────────────────────┤
-│                   TPM 2.0 Hardware Chip                    │
-│  • Secure key storage   │  • Platform measurements        │
-│  • Hardware RNG         │  • Attestation signing          │
-│  • Sealed data          │  • Tamper resistance            │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### **Production Deployment Requirements**
-
-#### **Mandatory TPM 2.0 Setup**
-
-For production deployments, you **must** have:
-
-1. **TPM 2.0 Hardware**
-   ```bash
-   # Verify TPM 2.0 is available
-   cat /sys/class/tpm/tpm*/tpm_version_major
-   # Should output: 2
-   ```
-
-2. **TPM Tools Installation**
-   ```bash
-   # Ubuntu/Debian
-   sudo apt-get install tpm2-tools libtss2-dev
-   
-   # CentOS/RHEL/Fedora
-   sudo dnf install tpm2-tools tpm2-tss-devel
-   ```
-
-3. **TPM Initialization**
-   ```bash
-   # Test TPM functionality
-   tpm2_getcap properties-fixed
-   
-   # Should show TPM properties without errors
-   ```
-
-#### **Configuration for Production**
-
-```javascript
-// Production configuration - TPM REQUIRED
-const attestium = new Attestium({
-  projectRoot: process.cwd(),
-  enableTpm: true,  // MANDATORY for production
-  tpm: {
-    keyContext: '/secure/attestium-production.ctx',
-    sealedDataPath: '/secure/attestium-sealed.dat',
-    pcrList: [0, 1, 2, 3, 7, 8],  // Comprehensive boot measurements
-    requireHardwareRandom: true,   // Fail if TPM RNG unavailable
-    enforceSystemIntegrity: true   // Verify system hasn't been compromised
-  },
-  // Enhanced security settings for production
-  enableRuntimeHooks: true,
-  continuousVerification: true,
-  verificationInterval: 'random',  // Unpredictable timing
-  externalValidation: {
-    enabled: true,
-    requiredSources: 3,  // Minimum external validators
-    githubVerification: true
-  }
-});
-
-// Verify TPM is working before proceeding
-if (!await attestium.isTpmAvailable()) {
-  throw new Error('CRITICAL: TPM 2.0 required for production deployment');
-}
-
-// Initialize hardware-backed verification
-await attestium.initializeTpm();
-console.log('✅ Production Attestium initialized with TPM 2.0 protection');
+```mermaid
+block-beta
+  columns 2
+  block:app["Attestium Application"]:2
+    columns 2
+    block:sw["Software Verification"]
+      A["File checksums"]
+      B["Runtime monitoring"]
+      C["External validation"]
+      D["Tamper detection"]
+    end
+    block:hw["TPM 2.0 Hardware Integration"]
+      E["Hardware random generation"]
+      F["Cryptographic attestation"]
+      G["Sealed storage"]
+      H["PCR measurements"]
+    end
+  end
+  block:tpm["TPM 2.0 Hardware Chip"]:2
+    columns 2
+    block:left[" "]
+      I["Secure key storage"]
+      J["Hardware RNG"]
+      K["Sealed data"]
+    end
+    block:right[" "]
+      L["Platform measurements"]
+      M["Attestation signing"]
+      N["Tamper resistance"]
+    end
+  end
 ```
 
-### **Development vs Production Modes**
+### **Attestium's TPM 2.0 Integration**
 
-#### **Development Mode (Software-Only)**
-```javascript
-// Development/testing only - NOT for production
-const attestium = new Attestium({
-  enableTpm: false,  // Software-only mode
-  developmentMode: true
-});
-```
+Attestium leverages these TPM 2.0 features to provide a secure verification environment:
 
-#### **Production Mode (TPM Required)**
-```javascript
-// Production deployment - TPM mandatory
-const attestium = new Attestium({
-  enableTpm: true,   // Hardware-backed security
-  productionMode: true,
-  tpm: { /* TPM configuration */ }
-});
-```
-
-### **Compliance and Standards**
-
-TPM 2.0 integration enables Attestium to meet various compliance requirements:
-
-- **FIPS 140-2**: Hardware-based cryptographic operations
-- **Common Criteria**: Evaluated security assurance levels
-- **ISO 27001**: Information security management
-- **SOC 2 Type II**: Security and availability controls
-- **PCI DSS**: Payment card industry security standards
-
-> [!WARNING]
-> **Compliance Notice**: Software-only mode does **not** meet most regulatory compliance requirements. TPM 2.0 integration is **mandatory** for compliance with security standards that require hardware-backed cryptographic operations.
-
-## 🚀 **Getting Started**
-
-> [!IMPORTANT]
-> **Production Requirement**: Attestium **requires TPM 2.0 hardware** for production deployments. Software-only mode is available for development and testing but should **never** be used in production environments handling sensitive data.
-
-### **Quick Start for Development**
-
-For development and testing purposes only:
-
-```bash
-npm install attestium
-```
-
-```javascript
-const Attestium = require('attestium');
-
-// Development mode (software-only) - NOT for production
-const attestium = new Attestium({
-  projectRoot: process.cwd(),
-  enableTpm: false,  // Development only
-  developmentMode: true
-});
-
-// Generate verification report
-const report = await attestium.generateVerificationReport();
-console.log('Development Verification Report:', report);
-```
-
-### **Production Deployment with TPM 2.0**
-
-For production environments, TPM 2.0 is **mandatory**:
-
-```javascript
-const Attestium = require('attestium');
-
-// Production mode (TPM required)
-const attestium = new Attestium({
-  projectRoot: process.cwd(),
-  enableTpm: true,  // REQUIRED for production
-  productionMode: true,
-  tpm: {
-    keyContext: '/secure/attestium-production.ctx',
-    sealedDataPath: '/secure/attestium-sealed.dat',
-    pcrList: [0, 1, 2, 3, 7, 8]
-  }
-});
-
-// Verify TPM is available before proceeding
-if (!await attestium.isTpmAvailable()) {
-  throw new Error('CRITICAL: TPM 2.0 required for production deployment');
-}
-
-// Initialize hardware-backed verification
-await attestium.initializeTpm();
-const hardwareAttestation = await attestium.generateHardwareAttestation(nonce);
-```
-
-### **Why Software-Only Mode is Insufficient for Production**
-
-### **Potential Attack Vectors**
-
-We acknowledge that determined attackers with sufficient system access could potentially:
-
-1. **Memory Manipulation**: Directly alter in-memory code or data structures
-2. **Function Hooking**: Intercept system calls like `fs.readFile` or `crypto.createHash`
-3. **Time-Based Attacks**: Reset system state during verification, then revert changes
-4. **Process Injection**: Inject malicious code into the running process
-5. **Hypervisor-Level Attacks**: Compromise the underlying virtualization layer
-
-### **How Attestium Mitigates These Risks**
-
-#### **1. Continuous Background Verification**
-```javascript
-const attestium = new Attestium({
-  enableRuntimeHooks: true,
-  continuousVerification: true,
-  verificationInterval: 'random' // Unpredictable timing
-});
-```
-
-#### **2. Deep Runtime Hooks**
-- Monitors critical Node.js functions (`require`, `fs.readFile`, `eval`)
-- Tracks module loading and modification
-- Detects unexpected code execution patterns
-
-#### **3. Nonce-Based Challenge-Response**
-```javascript
-// External verifier generates unpredictable challenge
-const challenge = crypto.randomBytes(32).toString('base64');
-
-// Server must respond with fresh verification
-const response = await attestium.generateVerificationReport(challenge);
-```
-
-#### **4. Multi-Source Verification**
-- Multiple independent auditors verify the same system
-- Cross-verification between auditors
-- Consensus-based integrity assessment
-
-#### **5. Cryptographic Audit Trails**
-- All verification results are cryptographically signed
-- Immutable audit logs with timestamp verification
-- Public transparency through audit result publication
-
-### **Nonce-Based Tamper Detection**
-
-The nonce-based verification protocol makes certain attacks significantly more difficult:
-
-#### **How Nonces Prevent Simple Tampering**
-1. **External Challenge**: Verification requests include unpredictable nonces
-2. **Fresh Computation**: Server must compute checksums in real-time
-3. **Signature Verification**: Responses are cryptographically signed
-4. **Time Windows**: Challenges expire within minutes
-
-#### **Example Attack Scenario and Mitigation**
-```javascript
-// ❌ Attack: Attacker tries to reset files during verification
-setTimeout(() => {
-  // Attacker resets files to clean state
-  fs.writeFileSync('app.js', originalContent);
-}, 100);
-
-// ✅ Mitigation: Continuous monitoring detects the change
-attestium.on('fileChanged', (file, oldChecksum, newChecksum) => {
-  console.log(`Tampering detected: ${file} changed from ${oldChecksum} to ${newChecksum}`);
-  // Alert sent to external monitoring systems
-});
-```
-
-### **Limitations and Honest Disclosure**
-
-> [!WARNING]
-> **Security Limitations**: Attestium cannot protect against:
-> - Attackers with root/administrator access to the host system
-> - Hypervisor-level compromises
-> - Hardware-based attacks (without additional HSM/TPM integration)
-> - Sophisticated rootkits that can intercept all system calls
-
-### **Recommended Security Enhancements**
-
-For higher security assurance, consider combining Attestium with:
-
-1. **Hardware Security Modules (HSMs)** for cryptographic operations
-2. **Trusted Platform Modules (TPMs)** for hardware-based attestation
-3. **Secure Boot** processes to verify the entire boot chain
-4. **Container Security** solutions for additional isolation
-5. **Network Segmentation** to limit attack surface
-6. **Regular Security Audits** by independent third parties
+* **Key Management**: Attestium's cryptographic keys are generated and stored in the TPM.
+* **Integrity Verification**: The TPM is used to verify the integrity of the boot process and the running system.
+* **Sealed Data**: Verification baselines are sealed to the TPM, preventing tampering.
+* **Hardware Random**: The TPM's hardware random number generator is used for cryptographic operations.
 
 ## 🚀 **Quick Start**
 
-### **Installation**
+### **1. Installation**
 
 ```bash
 npm install attestium
+# or
+pnpm add attestium
 ```
 
-### **TPM 2.0 Hardware-Backed Verification (Optional)**
-
-For enhanced security with hardware-backed verification, Attestium supports TPM 2.0 integration. This provides cryptographic proof that cannot be tampered with by software-only attacks.
-
-#### **Prerequisites**
-
-- TPM 2.0 hardware (check with `cat /sys/class/tpm/tpm*/tpm_version_major`)
-- Linux system with TPM support
-- Root access for initial setup
-
-#### **Installing TPM 2.0 Tools**
-
-**Ubuntu/Debian:**
-```bash
-sudo apt-get update
-sudo apt-get install tpm2-tools libtss2-dev
-```
-
-**CentOS/RHEL/Fedora:**
-```bash
-sudo yum install tpm2-tools tpm2-tss-devel
-# or for newer versions:
-sudo dnf install tpm2-tools tpm2-tss-devel
-```
-
-**From Source (like Keylime):**
-```bash
-# Install tpm2-tools from source
-git clone https://github.com/tpm2-software/tpm2-tools.git tpm2-tools
-pushd tpm2-tools
-./bootstrap
-./configure --prefix=/usr/local
-make
-sudo make install
-popd
-```
-
-#### **Verify TPM Installation**
-
-```bash
-# Check TPM version
-cat /sys/class/tpm/tpm*/tpm_version_major
-
-# Test TPM tools
-tpm2_getcap properties-fixed
-
-# If you see TPM properties, your setup is working correctly!
-```
-
-#### **Enable TPM in Attestium**
+### **2. Basic Usage**
 
 ```javascript
-const Attestium = require('attestium');
+const Attestium = require("attestium");
 
-const attestium = new Attestium({
-  projectRoot: process.cwd(),
-  enableTpm: true, // Enable TPM integration
-  tpm: {
-    keyContext: 'attestium-key.ctx',
-    sealedDataPath: 'attestium-sealed.dat'
-  }
-});
+async function main() {
+  const attestium = new Attestium({
+    projectPath: process.cwd(),
+    autoDetectTpm: true,
+  });
 
-// Check if TPM is available
-if (await attestium.isTpmAvailable()) {
-  console.log('✅ TPM 2.0 hardware detected');
-  
-  // Generate hardware-backed attestation
-  const nonce = crypto.randomBytes(32).toString('base64');
-  const hardwareAttestation = await attestium.generateHardwareAttestation(nonce);
-  console.log('Hardware attestation:', hardwareAttestation);
-} else {
-  console.log('⚠️ TPM not available, using software-only verification');
-  console.log(attestium.getTpmInstallationInstructions());
+  const report = await attestium.generateVerificationReport();
+  console.log("Verification Report:", report);
+
+  const securityStatus = await attestium.getSecurityStatus();
+  console.log("Security Status:", securityStatus);
 }
-```
 
-#### **TPM-Backed Features**
-
-When TPM is available, Attestium provides additional security features:
-
-- **Hardware Random Generation**: `await attestium.generateHardwareRandom(32)`
-- **Sealed Data Storage**: `await attestium.sealVerificationData(data)`
-- **System Integrity Verification**: `await attestium.verifySystemIntegrity()`
-- **Hardware Attestation Quotes**: Cryptographic proof of system state
-
-> [!NOTE]
-> **TPM Integration**: TPM features are optional and Attestium gracefully falls back to software-only verification when TPM is not available. The system automatically detects TPM availability and provides installation guidance when needed.
-
-### **Basic Usage**
-
-```javascript
-const Attestium = require('attestium');
-
-// Initialize with project root
-const attestium = new Attestium({
-  projectRoot: process.cwd(),
-  enableRuntimeHooks: true
-});
-
-// Generate verification report
-const report = await attestium.generateVerificationReport();
-console.log('Verification Report:', report);
-
-// Verify file integrity
-const result = await attestium.verifyFileIntegrity('./src/app.js');
-console.log('File Integrity:', result);
-```
-
-### **Express.js Integration**
-
-```javascript
-const express = require('express');
-const Attestium = require('attestium');
-
-const app = express();
-const attestium = new Attestium();
-
-// Verification endpoint for third-party auditors
-app.get('/api/verification/challenge', async (req, res) => {
-  const nonce = crypto.randomBytes(32).toString('base64');
-  const report = await attestium.generateVerificationReport();
-  
-  res.json({
-    success: true,
-    challenge: {
-      nonce,
-      serverChecksum: report.signature,
-      timestamp: new Date().toISOString()
-    }
-  });
-});
-
-app.post('/api/verification/verify', async (req, res) => {
-  const { nonce, clientSignature, expectedChecksum } = req.body;
-  
-  // Generate fresh verification report
-  const report = await attestium.generateVerificationReport();
-  
-  // Verify client signature
-  const isValid = attestium.verifySignature(nonce, clientSignature, expectedChecksum);
-  
-  res.json({
-    success: isValid,
-    verification: {
-      timestamp: new Date().toISOString(),
-      serverChecksum: report.signature,
-      signature: attestium.signResponse(nonce, report.signature),
-      report: report.summary
-    }
-  });
-});
+main().catch(console.error);
 ```
 
 ## ⚙️ **Configuration**
 
-Attestium uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for flexible configuration. You can configure it via:
+Attestium uses [cosmiconfig](https://github.com/cosmiconfig/cosmiconfig) for configuration. You can configure Attestium in:
 
-- `attestium.config.js`
-- `.attestiumrc.json`
-- `.attestiumrc.yml`
-- `package.json` "attestium" field
+* `package.json` (`attestium` property)
+* `.attestiumrc.json`
+* `.attestiumrc.yml`
+* `attestium.config.js`
 
 ### **Configuration Options**
 
-```javascript
-// attestium.config.js
-module.exports = {
-  // Project root directory
-  projectRoot: process.cwd(),
-  
-  // File patterns to include
-  includePatterns: [
-    '**/*.js',
-    '**/*.ts',
-    '**/*.json',
-    '**/*.md'
-  ],
-  
-  // File patterns to exclude
-  excludePatterns: [
-    '**/node_modules/**',
-    '**/coverage/**',
-    '**/.git/**',
-    '**/dist/**',
-    '**/build/**'
-  ],
-  
-  // Runtime monitoring
-  enableRuntimeHooks: true,
-  continuousVerification: false,
-  verificationInterval: 60000, // 1 minute
-  
-  // Git integration
-  gitCommit: null, // Auto-detected
-  gitBranch: null, // Auto-detected
-  
-  // Logging
-  logger: console,
-  logLevel: 'INFO'
-};
-```
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `projectPath` | `string` | `process.cwd()` | Path to the project to be verified. |
+| `autoDetectTpm` | `boolean` | `true` | Automatically detect and use TPM if available. |
+| `enableTpm` | `boolean` | `false` | Force enable/disable TPM (overrides autoDetect). |
+| `fallbackMode` | `string` | `software` | Fallback when TPM unavailable: `software` or `disabled`. |
+| `productionMode` | `boolean` | `false` | Enable production security features. |
+| `includePatterns` | `string[]` | `[]` | Glob patterns to include files. |
+| `excludePatterns` | `string[]` | `[]` | Glob patterns to exclude files. |
+| `gitignore` | `boolean` | `true` | Respect `.gitignore` rules. |
+| `tpm` | `object` | `{}` | TPM 2.0 specific settings. |
+| `tpm.keyContext` | `string` | `attestium.ctx` | Path to TPM key context file. |
+| `tpm.sealedDataPath` | `string` | `attestium-sealed.dat` | Path to sealed data file. |
+| `tpm.pcrList` | `number[]` | `[0, 1, 2, 3, 7, 8]` | Platform Configuration Registers to use. |
+| `externalValidation` | `object` | `{}` | External validation network settings. |
+| `externalValidation.enabled` | `boolean` | `false` | Enable external validation. |
+| `externalValidation.requiredConfirmations` | `number` | `1` | Number of required confirmations. |
+| `externalValidation.nodes` | `string[]` | `[]` | List of external validation nodes. |
 
-### **YAML Configuration Example**
+## 🤖 **Continuous Monitoring with Audit Status**
+
+For enterprise-grade continuous monitoring, automated server auditing, and real-time notifications, use [Audit Status](https://auditstatus.com), which is built on top of Attestium.
+
+[![Audit Status](https://img.shields.io/badge/Powered%20by-Audit%20Status-blue.svg)](https://auditstatus.com)
+
+### **Upptime Integration**
+
+You can integrate Audit Status with [Upptime](https://github.com/upptime/upptime) for a comprehensive uptime and integrity monitoring solution.
+
+1. **Expose an audit health endpoint** on your server. See the [health endpoint example](https://github.com/auditstatus/auditstatus/blob/main/examples/health-endpoint.js).
+2. **Add the endpoint to your `.upptimerc.yml`**:
 
 ```yaml
-# .attestiumrc.yml
-projectRoot: /app
-includePatterns:
-  - "**/*.js"
-  - "**/*.ts"
-  - "**/*.json"
-excludePatterns:
-  - "**/node_modules/**"
-  - "**/coverage/**"
-enableRuntimeHooks: true
-continuousVerification: true
-verificationInterval: 30000
+sites:
+  - name: Production API
+    url: https://api.example.com
+
+  - name: Production Audit Status
+    url: https://api.example.com/health/audit
+    expectedStatusCodes:
+      - 200
 ```
-
-## 📚 **API Reference**
-
-### **Class: Attestium**
-
-#### **Constructor**
-
-```javascript
-new Attestium(options)
-```
-
-**Parameters:**
-- `options` (Object): Configuration options
-
-#### **Methods**
-
-##### **`generateVerificationReport(challenge?)`**
-
-Generates a comprehensive verification report of the current system state.
-
-```javascript
-const report = await attestium.generateVerificationReport();
-```
-
-**Parameters:**
-- `challenge` (string, optional): Nonce for challenge-response verification
-
-**Returns:**
-- `Promise<Object>`: Verification report containing file checksums, metadata, and signature
-
-##### **`verifyFileIntegrity(filePath)`**
-
-Verifies the integrity of a specific file.
-
-```javascript
-const result = await attestium.verifyFileIntegrity('./src/app.js');
-```
-
-**Parameters:**
-- `filePath` (string): Path to the file to verify
-
-**Returns:**
-- `Promise<Object>`: Verification result with checksum, category, and status
-
-##### **`scanProjectFiles()`**
-
-Scans the project directory for files matching include/exclude patterns.
-
-```javascript
-const files = await attestium.scanProjectFiles();
-```
-
-**Returns:**
-- `Promise<Array<string>>`: Array of absolute file paths
-
-##### **`calculateFileChecksum(filePath)`**
-
-Calculates SHA-256 checksum for a specific file.
-
-```javascript
-const checksum = await attestium.calculateFileChecksum('./src/app.js');
-```
-
-**Parameters:**
-- `filePath` (string): Path to the file
-
-**Returns:**
-- `Promise<string>`: SHA-256 checksum in hexadecimal format
-
-##### **`categorizeFile(relativePath)`**
-
-Categorizes a file based on its path and extension.
-
-```javascript
-const category = attestium.categorizeFile('src/app.js');
-// Returns: 'source'
-```
-
-**Parameters:**
-- `relativePath` (string): Relative path to the file
-
-**Returns:**
-- `string`: File category ('source', 'test', 'config', 'documentation', 'dependency', 'static_asset')
-
-##### **`filterFilesByPatterns(files)`**
-
-Filters an array of file paths based on include/exclude patterns.
-
-```javascript
-const filtered = attestium.filterFilesByPatterns(allFiles);
-```
-
-**Parameters:**
-- `files` (Array<string>): Array of file paths to filter
-
-**Returns:**
-- `Array<string>`: Filtered array of file paths
-
-##### **`exportVerificationData()`**
-
-Exports verification data for external storage or transmission.
-
-```javascript
-const exportData = await attestium.exportVerificationData();
-```
-
-**Returns:**
-- `Promise<Object>`: Exportable verification data with signature
-
-##### **`verifyImportedData(importedData)`**
-
-Verifies the integrity of previously exported verification data.
-
-```javascript
-const isValid = await attestium.verifyImportedData(exportData);
-```
-
-**Parameters:**
-- `importedData` (Object): Previously exported verification data
-
-**Returns:**
-- `Promise<boolean>`: True if data is valid and unmodified
-
-##### **`getRuntimeVerificationStatus()`**
-
-Gets the current runtime verification status including loaded modules.
-
-```javascript
-const status = attestium.getRuntimeVerificationStatus();
-```
-
-**Returns:**
-- `Object`: Runtime verification status with module information
-
-##### **`trackModuleLoad(modulePath, checksum)`**
-
-Tracks the loading of a Node.js module for runtime verification.
-
-```javascript
-attestium.trackModuleLoad('/path/to/module.js', 'sha256checksum');
-```
-
-**Parameters:**
-- `modulePath` (string): Path to the loaded module
-- `checksum` (string): SHA-256 checksum of the module
-
-##### **`generateChallenge()`**
-
-Generates a cryptographic challenge for nonce-based verification.
-
-```javascript
-const challenge = attestium.generateChallenge();
-console.log(challenge);
-// {
-//   nonce: "base64-encoded-random-bytes",
-//   timestamp: "2025-06-28T22:00:00.000Z",
-//   expiresAt: "2025-06-28T22:05:00.000Z"
-// }
-```
-
-**Returns:**
-- `Object`: Challenge object with nonce, timestamp, and expiry
-
-##### **`generateVerificationReportWithChallenge(challenge)`**
-
-Generates a verification report that includes a challenge response.
-
-```javascript
-const challenge = 'external-nonce-12345';
-const report = await attestium.generateVerificationReportWithChallenge(challenge);
-```
-
-**Parameters:**
-- `challenge` (string, optional): Nonce challenge for verification
-
-**Returns:**
-- `Promise<Object>`: Verification report with challenge response
-
-##### **`verifySignature(nonce, clientSignature, expectedChecksum)`**
-
-Verifies a signature against a nonce and expected checksum.
-
-```javascript
-const isValid = attestium.verifySignature(nonce, signature, checksum);
-```
-
-**Parameters:**
-- `nonce` (string): The nonce used in the challenge
-- `clientSignature` (string): Signature provided by client
-- `expectedChecksum` (string): Expected checksum value
-
-**Returns:**
-- `boolean`: True if signature is valid
-
-##### **`signResponse(nonce, checksum)`**
-
-Signs a response with nonce and checksum for verification.
-
-```javascript
-const signature = attestium.signResponse(nonce, checksum);
-```
-
-**Parameters:**
-- `nonce` (string): The nonce from the challenge
-- `checksum` (string): The checksum to sign
-
-**Returns:**
-- `string`: Cryptographic signature
-
-##### **`validateChallenge(challenge)`**
-
-Validates a challenge to ensure it's not expired.
-
-```javascript
-const isValid = attestium.validateChallenge(challenge);
-```
-
-**Parameters:**
-- `challenge` (Object): Challenge object with timestamp and expiry
-
-**Returns:**
-- `boolean`: True if challenge is still valid
-
-##### **`generateVerificationResponse(nonce)`**
-
-Generates a complete verification response for external auditors.
-
-```javascript
-const response = await attestium.generateVerificationResponse(nonce);
-```
-
-**Parameters:**
-- `nonce` (string): Nonce from the verification request
-
-**Returns:**
-- `Promise<Object>`: Complete verification response with signature
-
-## 🧪 **Element Properties**
-
-As the **Element of Attestation**, Attestium has unique properties:
-
-| Property | Value | Description |
-|----------|-------|-------------|
-| **Symbol** | `At` | Represents Attestation |
-| **Atomic Number** | `∞` | Infinite verification possibilities |
-| **State** | `Stable` | When code is verified and unmodified |
-| **State** | `Unstable` | When tampering is detected |
-| **Bonds** | `Cryptographic` | SHA-256 checksums link files |
-| **Half-life** | `Permanent` | Verification records persist indefinitely |
-| **Reactivity** | `High` | Immediately reacts to code changes |
-
-## 🔬 **Advanced Usage**
-
-### **Continuous Verification**
-
-Attestium provides continuous monitoring capabilities through integration with [**Audit Status**](https://auditstatus.com) - a comprehensive server auditing service that leverages Attestium for hardware-backed verification.
-
-```javascript
-const attestium = new Attestium({
-  enableRuntimeHooks: true,
-  continuousVerification: true,
-  verificationInterval: 30000 // 30 seconds
-});
-
-// Listen for integrity violations
-attestium.on('integrityViolation', (violation) => {
-  console.error('Integrity violation detected:', violation);
-  // Send alert to monitoring system (e.g., Audit Status)
-});
-```
-
-For enterprise-grade continuous monitoring, consider using [**Audit Status**](https://auditstatus.com) which provides:
-- **Automated Server Auditing**: Regular verification of multiple servers
-- **Webhook Notifications**: Real-time alerts for integrity violations  
-- **Email Alerts**: SMTP-based notification system
-- **TPM Integration**: Hardware-backed verification with software fallback
-- **Dashboard Monitoring**: Web-based monitoring and reporting
-
-### **Custom File Categorization**
-
-```javascript
-const attestium = new Attestium({
-  customCategories: {
-    'migrations': /\/migrations\/.*\.js$/,
-    'seeds': /\/seeds\/.*\.js$/,
-    'schemas': /\/schemas\/.*\.json$/
-  }
-});
-```
-
-### **Git Integration**
-
-```javascript
-const attestium = new Attestium({
-  gitCommit: process.env.GIT_COMMIT,
-  gitBranch: process.env.GIT_BRANCH,
-  gitRemote: 'https://github.com/attestium/attestium.git'
-});
-
-const report = await attestium.generateVerificationReport();
-console.log('Git commit:', report.metadata.gitCommit);
-```
-
-### **Third-Party Verification Server**
-
-```javascript
-const express = require('express');
-const Attestium = require('attestium');
-const crypto = require('crypto');
-
-const app = express();
-const attestium = new Attestium();
-
-// Challenge endpoint
-app.get('/api/verification/challenge', async (req, res) => {
-  const nonce = crypto.randomBytes(32).toString('base64');
-  const timestamp = new Date().toISOString();
-  
-  // Store challenge temporarily (use Redis in production)
-  challenges.set(nonce, { timestamp, used: false });
-  
-  const report = await attestium.generateVerificationReport();
-  
-  res.json({
-    success: true,
-    challenge: {
-      nonce,
-      timestamp,
-      serverChecksum: report.signature,
-      expiresIn: 300000 // 5 minutes
-    }
-  });
-});
-
-// Verification endpoint
-app.post('/api/verification/verify', async (req, res) => {
-  const { nonce, clientSignature, expectedChecksum } = req.body;
-  
-  // Validate nonce
-  const challenge = challenges.get(nonce);
-  if (!challenge || challenge.used) {
-    return res.status(400).json({ error: 'Invalid or expired nonce' });
-  }
-  
-  // Mark nonce as used
-  challenge.used = true;
-  
-  // Generate fresh verification
-  const report = await attestium.generateVerificationReport();
-  
-  // Verify client signature
-  const expectedSig = crypto.createHash('sha256')
-    .update(nonce + expectedChecksum + report.signature)
-    .digest('hex');
-  
-  if (clientSignature !== expectedSig) {
-    return res.status(400).json({ error: 'Invalid client signature' });
-  }
-  
-  // Generate server signature
-  const serverSignature = crypto.createHash('sha256')
-    .update(nonce + report.signature + expectedChecksum)
-    .digest('hex');
-  
-  res.json({
-    success: true,
-    verification: {
-      timestamp: new Date().toISOString(),
-      nonce,
-      serverChecksum: report.signature,
-      signature: serverSignature,
-      report: report.summary,
-      integrityStatus: report.signature === expectedChecksum ? 'VERIFIED' : 'MODIFIED'
-    }
-  });
-});
-```
-
-## 🧪 **Testing**
-
-Attestium includes a comprehensive test suite with 22 test cases covering all functionality:
-
-```bash
-# Run tests
-npm test
-
-# Run tests with coverage
-npm run test-coverage
-
-# Run linting
-npm run lint
-```
-
-### **Test Coverage**
-
-Current test coverage: **84.75%**
-
-- **Statements**: 84.75%
-- **Branches**: 80.51%
-- **Functions**: 90.9%
-- **Lines**: 84.75%
 
 ## 🤝 **Contributing**
 
-We welcome contributions to Attestium! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+Contributions are welcome! Please see our [contributing guidelines](./CONTRIBUTING.md) for more information.
 
-### **Development Setup**
+## 📜 **License**
 
-```bash
-# Clone the repository
-git clone https://github.com/attestium/attestium.git
-cd attestium
+Attestium is licensed under the [MIT License](./LICENSE).
 
-# Install dependencies
-pnpm install
+***
 
-# Run tests
-pnpm test
-
-# Run linting
-pnpm run lint
-```
-
-### **Code Quality**
-
-Attestium maintains high code quality standards:
-
-- **XO** for linting with automatic fixing
-- **Prettier** for consistent code formatting
-- **Husky** for git hooks and quality gates
-- **Commitlint** for conventional commit messages
-- **C8** for comprehensive test coverage
-
-## 📄 **License**
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## 🙏 **Acknowledgments**
-
-Attestium was inspired by and built upon research from:
-
-- **[Forward Email](https://forwardemail.net)** - For pioneering transparent email infrastructure
-- **[Mullvad VPN](https://mullvad.net)** - For advancing system transparency methodologies
-- **The open source community** - For providing the foundational tools and libraries
-
-## 🔗 **Related Projects**
-
-- **[Forward Email Auditor](https://github.com/forwardemail/auditor)** - Third-party auditing system using Attestium
-- **[Forward Email](https://github.com/forwardemail/forwardemail.net)** - Privacy-focused email service with Attestium integration
-
----
-
-> **Attestium** - Because trust should be verifiable, not assumed.
-
-![Element of Attestation](./assets/hero-image.png)
-
+![Element of Attestation](./assets/element.png)

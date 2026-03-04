@@ -1,0 +1,125 @@
+# Markdown template for academic writing
+
+This is a template for writing academic papers in Markdown. It uses Pandoc to convert the Markdown files to LaTeX, and then compiles the LaTeX to a PDF. You can see the generated PDF of this template [here](https://mikkelsvartveit.github.io/markdown-latex-template/article.pdf).
+
+## Getting started
+
+### Running locally
+
+This template is developed for macOS and Linux. If you're on Windows, use [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) and follow the instructions for Linux.
+
+#### macOS
+
+1. Download and install [MacTeX](https://www.tug.org/mactex/mactex-download.html) (LaTeX distribution)
+
+2. Install packages with [Homebrew](https://brew.sh/):
+
+   ```bash
+   brew install pandoc # For compiling Markdown to LaTeX
+   brew install fswatch # For watching Markdown files and automatically compiling the PDF
+   brew install librsvg # For SVG image support
+   brew install node # For Node.js and npm
+   npm install -g mermaid-filter # For rendering Mermaid diagrams
+   ```
+
+#### Linux
+
+Install packages:
+
+```bash
+sudo apt install texlive-full # LaTeX distribution
+sudo apt install pandoc # For compiling Markdown to LaTeX
+sudo apt install inotify-tools # For watching Markdown files and automatically compiling the PDF
+sudo apt install librsvg2-bin # For SVG image support
+sudo apt install nodejs npm # For Node.js and npm
+sudo npm install -g mermaid-filter # For rendering Mermaid diagrams
+```
+
+### Running in GitHub Codespaces
+
+If you want to avoid installing anything on your local machine, you can use [GitHub Codespaces](https://github.com/features/codespaces) to write in a browser-based development environment.
+
+1. Click the green "Use this template" button on the top right of this repository and create a new repository from it.
+
+2. Go to the new repository and click the "Code" button on the top right. Select "Codespaces" and click "Create codespace on main".
+
+Note that building the Codespace can take a while the first time you open it.
+
+## Basic Usage
+
+1. Write your paper in Markdown in the `content` directory. All Markdown files in the `content` directory will be compiled to a single PDF file. Check out the `content/01-main.md` file for an example of how to use different Markdown features.
+
+2. Add your references to the `assets/bibliography.bib` file.
+
+3. Run `make pdf` to compile the Markdown files to a PDF. The PDF will be saved to the `output` directory.
+
+You can also use these commands:
+
+* `make watch`: automatically recompile the PDF when you make changes to the Markdown files (requires installing fswatch if you're on macOS).
+
+* `make latex`: output a LaTeX file instead of a PDF.
+
+* `make wordcount`: calculate the word count across all Markdown files (except cover, appendix and references).
+
+## Using Mermaid Diagrams
+
+This template supports [Mermaid](https://mermaid-js.github.io/mermaid/) diagrams in your Markdown files. To use Mermaid diagrams, you need to:
+
+1. Install Node.js and npm (see installation instructions above)
+2. Install mermaid-filter globally: `npm install -g mermaid-filter`
+3. Write your Mermaid diagrams in your Markdown files using the following syntax:
+
+```mermaid
+graph TD
+    A[Start] --> B{Is it working?}
+    B -->|Yes| C[Great!]
+    B -->|No| D[Debug]
+    D --> B
+```
+
+The Makefile is configured to use the mermaid-filter when generating the PDF, which will automatically convert your Mermaid diagrams to images in the final PDF.
+
+## Github Pages
+
+This repository contains a GitHub Actions workflow that builds the PDF and deploys it to a public Github Pages site on every push to the `main` branch. You can see the generated PDF [here](https://mikkelsvartveit.github.io/markdown-latex-template/article.pdf).
+
+To enable this for your own repository, go to the "Pages" tab of your repository settings, and select "GitHub Actions" as the source. Note that the generated PDF will be publically available even if your repository is private.
+
+If you want to disable this completely, simply delete the `.github/workflows/` directory.
+
+## Customization
+
+### Styling and layout options
+
+The frontmatter of the `content/00-cover.md` file contains options related to the styling and layout of the document. Here you can change things like the font size, paper size, margins, and more.
+
+### Changing the font
+
+To change the font, you can add your font files to `assets/fonts`. Then, you need to specify the font in the Markdown frontmatter. For example, to use the font [Source Serif 4](https://github.com/adobe-fonts/source-serif), you could add these files to the `assets/fonts` directory:
+
+* SourceSerif4-Regular.ttf
+* SourceSerif4-SemiBold.ttf
+* SourceSerif4-It.ttf
+* SourceSerif4-SemiBoldIt.ttf
+
+Then, apply the font like this in the frontmatter of the `content/00-cover.md` file:
+
+```yaml
+mainfont: "SourceSerif4"
+
+mainfontoptions:
+  - Path=./assets/fonts/
+  - Extension=.ttf
+  - UprightFont=*-Regular
+  - BoldFont=*-SemiBold
+  - ItalicFont=*-It
+  - BoldItalicFont=*-SemiBoldIt
+```
+
+### Changing the LaTeX template
+
+Pandoc uses a reasonable default template for LaTeX, but if you want control over things that can't be specified in the Markdown frontmatter, you can add your own .tex file to use as a template. To get a starting point, you can run `pandoc -D latex` to print the default template, and then modify it from there. Save the file as `assets/template.tex`, and then add the `--template "assets/template.tex"` flag to the Pandoc commands in the Makefile.
+
+### Changing the bibliography style
+
+This repository is preconfigured with the IEEE citation style, but you can easily change it to another style. To do this, add your own .csl file to the `assets` directory, and then change the `csl` field in the frontmatter of `content/00-cover.md` to the path to your .csl file.

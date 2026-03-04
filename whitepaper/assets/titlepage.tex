@@ -1,0 +1,86 @@
+% Custom title page matching Forward Email whitepaper style
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
+
+% Configure page headers: logo left, title right
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\raisebox{-0.3\height}{\includegraphics[height=20pt]{assets/avatar.png}}}
+\fancyhead[R]{\small\textit{Attestium: A Framework for Verifiable Runtime Integrity}}
+\fancyfoot[C]{\thepage}
+
+% Apply fancy style to plain pages (first page of chapters, TOC, etc.)
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \fancyhead[L]{\raisebox{-0.3\height}{\includegraphics[height=20pt]{assets/avatar.png}}}
+  \fancyhead[R]{\small\textit{Attestium: A Framework for Verifiable Runtime Integrity}}
+  \fancyfoot[C]{\thepage}
+}
+
+% Redefine \maketitle to produce our custom title page
+\renewcommand{\maketitle}{%
+  \begin{titlepage}
+  \thispagestyle{empty}
+  \centering
+
+  % Logo at the top of the title page
+  \vspace*{0.3cm}
+  \includegraphics[width=2.5cm]{assets/avatar.png}
+
+  \vspace{0.8cm}
+
+  % Title: "Attestium" bold, rest normal weight
+  {\fontsize{24}{28}\selectfont \textbf{Attestium:} A Framework for Verifiable Runtime Integrity\par}
+
+  \vspace{0.6em}
+  \hrule
+  \vspace{0.6em}
+
+  % Subtitle
+  {\fontsize{14}{18}\selectfont The only 100\% open-source framework for verifiable,\\TPM-backed runtime integrity\par}
+
+  \vspace{1.5em}
+
+  % Author block
+  {\normalsize
+  Nicholas Baugh, Founder\\
+  Forward Email LLC\\
+  nick@forwardemail.net\\
+  \href{https://forwardemail.net}{https://forwardemail.net}\\
+  \href{https://github.com/attestium/attestium}{https://github.com/attestium/attestium}\par}
+
+  \vspace{1.5em}
+
+  % Dates
+  {\small
+  First Published: March 3, 2026\\
+  Last Revised: March 3, 2026\par}
+
+  \vspace{1.5em}
+
+  % Foreword header
+  {\fontsize{14}{18}\selectfont \textbf{Foreword}\par}
+
+  \vspace{0.8em}
+
+  % Foreword text (justified, not centered)
+  \begin{flushleft}
+  \setlength{\parindent}{2em}
+  \setlength{\parskip}{0.4em}
+  Recent high-profile supply chain attacks, from SolarWinds to the xz-utils backdoor, have exposed a fundamental flaw in modern software security: the gap between build-time security and runtime integrity. We have made significant strides in securing the software supply chain with frameworks like SLSA and tools like Sigstore. These are essential, but they only verify the integrity of software \textit{before} it is deployed.
+
+  This whitepaper introduces Attestium, an open-source framework we built to bridge this gap. Attestium provides continuous, verifiable runtime integrity for server-side applications by leveraging Trusted Platform Modules (TPMs) and a unique layered architecture. It offers a practical, scalable solution for achieving end-to-end trust, ensuring the code you run is the code you trust.
+  \end{flushleft}
+
+  \vfill
+
+  % Dedication
+  {\fontsize{8}{10}\selectfont \textit{Dedicated to the open-source community and the pursuit of transparency.}\par}
+
+  \end{titlepage}
+}

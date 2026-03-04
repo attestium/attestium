@@ -1,0 +1,29 @@
+% Custom header file for table formatting
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{colortbl}
+
+% Reduce font size for tables - using scriptsize instead of small
+\AtBeginEnvironment{longtable}{\scriptsize}
+\AtBeginEnvironment{tabular}{\scriptsize}
+\AtBeginEnvironment{table}{\scriptsize}
+
+% Additional direct control for markdown tables
+\let\oldlongtable\longtable
+\let\endoldlongtable\endlongtable
+\renewenvironment{longtable}{\scriptsize\oldlongtable}{\endoldlongtable}
+
+% Set table column widths to be more flexible
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+
+% Adjust table spacing
+\setlength{\tabcolsep}{3pt} % Reduced from 4pt
+\renewcommand{\arraystretch}{1.1} % Reduced from 1.2
+
+% Define symbols for checkmarks and x marks that work with the font
+\providecommand{\checkmark}{Yes}
+\providecommand{\xmark}{No}

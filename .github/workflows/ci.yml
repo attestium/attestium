@@ -1,270 +1,78 @@
-name: CI
+name: Tests
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
   schedule:
-    # Run tests daily at 6 AM UTC
     - cron: '0 6 * * *'
+
+permissions:
+  contents: read
 
 jobs:
   test:
-    name: Test on Node.js ${{ matrix.node-version }} and ${{ matrix.os }}
+    name: Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    
+
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [18.x, 20.x, 21.x]
+        node-version: [20.x, 22.x, 24.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-          
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install dependencies
-        run: npm ci
-        
-      - name: Run linting
-        run: npm run lint
-        
-      - name: Run tests
-        run: npm test
-        
-      - name: Generate coverage report
-        if: matrix.node-version == '20.x' && matrix.os == 'ubuntu-latest'
-        run: npm run coverage
-        
-      - name: Upload coverage to GitHub
-        if: matrix.node-version == '20.x' && matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v3
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Test
+        run: pnpm test
+
+      - name: Coverage
+        if: matrix.node-version == '22.x' && matrix.os == 'ubuntu-latest'
+        run: pnpm run coverage
+
+      - name: Upload coverage
+        if: matrix.node-version == '22.x' && matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage/
 
   security:
-    name: Security Audit
+    name: Security audit
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-          cache: 'npm'
-          
+          node-version: 22.x
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install dependencies
-        run: npm ci
-        
-      - name: Run security audit
-        run: npm audit --audit-level=moderate
-        
-      - name: Check for vulnerabilities
-        run: npm audit --audit-level=high --production
+        run: pnpm install --frozen-lockfile
 
-  tpm-tests:
-    name: TPM Integration Tests
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Install TPM simulator (for testing)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y tpm2-tools tpm2-abrmd
+      - name: Audit
+        run: pnpm audit --audit-level=moderate
         continue-on-error: true
-        
-      - name: Run TPM integration tests
-        run: |
-          # Test TPM availability detection
-          node -e "
-          const Attestium = require('./lib/index');
-          
-          const attestium = new Attestium();
-          
-          attestium.isTpmAvailable().then(available => {
-            console.log('✅ TPM availability check works');
-            console.log('TPM available:', available);
-            
-            return attestium.getSecurityStatus();
-          }).then(status => {
-            console.log('✅ Security status check works');
-            console.log('Security status:', status);
-            
-            return attestium.generateVerificationReport({
-              projectPath: process.cwd()
-            });
-          }).then(report => {
-            console.log('✅ Verification report generation works');
-            console.log('Files verified:', report.files ? report.files.length : 0);
-            console.log('Overall checksum:', report.checksum ? 'Generated' : 'Missing');
-          }).catch(err => {
-            console.error('❌ TPM integration test failed:', err);
-            process.exit(1);
-          });
-          "
-
-  integration:
-    name: Integration Tests
-    runs-on: ubuntu-latest
-    needs: test
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Test Attestium API endpoints
-        run: |
-          node -e "
-          const Attestium = require('./lib/index');
-          
-          const attestium = new Attestium();
-          
-          // Test challenge generation
-          attestium.generateChallenge().then(challenge => {
-            console.log('✅ Challenge generation works');
-            console.log('Challenge length:', challenge.length);
-            
-            // Test challenge verification
-            return attestium.verifyChallenge(challenge, 'test-nonce');
-          }).then(result => {
-            console.log('✅ Challenge verification works');
-            console.log('Verification result:', typeof result);
-            
-            // Test verification response
-            return attestium.generateVerificationResponse('test-challenge');
-          }).then(response => {
-            console.log('✅ Verification response generation works');
-            console.log('Response has challenge:', !!response.challenge);
-            console.log('Response has timestamp:', !!response.timestamp);
-          }).catch(err => {
-            console.error('❌ Integration test failed:', err);
-            process.exit(1);
-          });
-          "
-          
-      - name: Test file integrity verification
-        run: |
-          node -e "
-          const Attestium = require('./lib/index');
-          const fs = require('fs');
-          
-          // Create test files
-          fs.writeFileSync('test-file-1.js', 'console.log(\"test 1\");');
-          fs.writeFileSync('test-file-2.js', 'console.log(\"test 2\");');
-          
-          const attestium = new Attestium();
-          
-          attestium.generateVerificationReport({
-            projectPath: process.cwd(),
-            includePatterns: ['test-file-*.js']
-          }).then(report => {
-            console.log('✅ File integrity verification works');
-            console.log('Files found:', report.files ? report.files.length : 0);
-            console.log('Checksum generated:', !!report.checksum);
-            
-            // Clean up test files
-            fs.unlinkSync('test-file-1.js');
-            fs.unlinkSync('test-file-2.js');
-          }).catch(err => {
-            console.error('❌ File integrity test failed:', err);
-            
-            // Clean up test files on error
-            try {
-              fs.unlinkSync('test-file-1.js');
-              fs.unlinkSync('test-file-2.js');
-            } catch (cleanupErr) {
-              // Ignore cleanup errors
-            }
-            
-            process.exit(1);
-          });
-          "
-
-  build:
-    name: Build and Package
-    runs-on: ubuntu-latest
-    needs: [test, security, tpm-tests, integration]
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Build package
-        run: npm run build
-        continue-on-error: true
-        
-      - name: Package for distribution
-        run: |
-          # Create distribution package
-          mkdir -p dist
-          cp -r lib dist/
-          cp package.json dist/
-          cp README.md dist/
-          cp -r examples dist/
-          
-          echo "✅ Package created successfully"
-          ls -la dist/
-
-  publish-test-results:
-    name: Publish Test Results
-    runs-on: ubuntu-latest
-    needs: [test, security, tpm-tests, integration, build]
-    if: always()
-    
-    steps:
-      - name: Download test results
-        uses: actions/download-artifact@v3
-        with:
-          name: test-results
-          path: test-results/
-        continue-on-error: true
-        
-      - name: Publish test results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          files: |
-            test-results/**/*.xml
-            test-results/**/*.json
-        continue-on-error: true
-

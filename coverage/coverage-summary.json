@@ -1,3 +1,0 @@
-{"total": {"lines":{"total":623,"covered":530,"skipped":0,"pct":85.07},"statements":{"total":623,"covered":530,"skipped":0,"pct":85.07},"functions":{"total":22,"covered":20,"skipped":0,"pct":90.9},"branches":{"total":78,"covered":64,"skipped":0,"pct":82.05},"branchesTrue":{"total":0,"covered":0,"skipped":0,"pct":"Unknown"}}
-,"/home/ubuntu/attestium/lib/index.js": {"lines":{"total":623,"covered":530,"skipped":0,"pct":85.07},"functions":{"total":22,"covered":20,"skipped":0,"pct":90.9},"statements":{"total":623,"covered":530,"skipped":0,"pct":85.07},"branches":{"total":78,"covered":64,"skipped":0,"pct":82.05}}
-}

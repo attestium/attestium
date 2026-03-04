@@ -1,0 +1,18 @@
+% Footnote formatting improvements using bigfoot and soul packages
+\usepackage{bigfoot}
+\DeclareNewFootnote{default}
+\usepackage{soul}
+
+% Configure footnotes to wrap properly and stay within margins
+\interfootnotelinepenalty=10000
+
+% Additional footnote formatting to ensure they don't run off the page
+\usepackage{footmisc}
+\setlength{\footnotemargin}{0.5em}
+\setlength{\footnotesep}{0.5em}
+\renewcommand{\footnotelayout}{\setlength{\parindent}{0pt}\setlength{\leftskip}{0pt}\setlength{\rightskip}{0pt}}
+
+% Force line breaks in long URLs
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-\do.\do=\do_\do?\do&\do;\do,\do!\do:\do+}
+\urlstyle{same}

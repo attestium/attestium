@@ -1,0 +1,17 @@
+% Custom header file for code block formatting
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines=true, breakanywhere=true, commandchars=\\\{\}, fontsize=\tiny}
+\usepackage{listings}
+\lstset{
+  breaklines=true,
+  breakatwhitespace=false,
+  postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},
+  breakindent=0pt,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle=\ttfamily\tiny,
+  commentstyle=\color{gray}\itshape,
+  keywordstyle=\color{blue},
+  stringstyle=\color{green!50!black},
+  showstringspaces=false
+}

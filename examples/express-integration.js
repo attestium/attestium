@@ -318,25 +318,25 @@ app.get('/', (request, res) => {
     <div class="container">
         <h1>🧪 Attestium Verification Demo</h1>
         <p><strong>Element of Attestation</strong> - Real-time code integrity verification</p>
-        
+
         <div id="status"></div>
-        
+
         <h3>Actions</h3>
         <button onclick="getStatus()">Get Server Status</button>
         <button onclick="startVerification()">Start Verification</button>
         <button onclick="exportData()">Export Verification Data</button>
-        
+
         <div id="results"></div>
     </div>
 
     <script>
         let currentChallenge = null;
-        
+
         function showStatus(message, type = 'info') {
             const statusDiv = document.getElementById('status');
             statusDiv.innerHTML = \`<div class="\${type}">\${message}</div>\`;
         }
-        
+
         function showResults(data) {
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = \`
@@ -344,13 +344,13 @@ app.get('/', (request, res) => {
                 <div class="code">\${JSON.stringify(data, null, 2)}</div>
             \`;
         }
-        
+
         async function getStatus() {
             try {
                 showStatus('Fetching server status...', 'info');
                 const response = await fetch('/api/verification/status');
                 const data = await response.json();
-                
+
                 if (data.success) {
                     showStatus('Server status retrieved successfully', 'success');
                     showResults(data.status);
@@ -361,23 +361,23 @@ app.get('/', (request, res) => {
                 showStatus(\`Network error: \${error.message}\`, 'error');
             }
         }
-        
+
         async function startVerification() {
             try {
                 showStatus('Starting verification process...', 'info');
-                
+
                 // Step 1: Get challenge from server
                 const challengeResponse = await fetch('/api/verification/challenge');
                 const challengeData = await challengeResponse.json();
-                
+
                 if (!challengeData.success) {
                     showStatus(\`Challenge failed: \${challengeData.error}\`, 'error');
                     return;
                 }
-                
+
                 currentChallenge = challengeData.challenge;
                 showStatus('Challenge received, generating client response...', 'info');
-                
+
                 // Step 2: Generate client signature
                 const expectedChecksum = currentChallenge.serverChecksum; // In real scenario, client would have its own expected value
                 const clientSignature = await generateClientSignature(
@@ -385,7 +385,7 @@ app.get('/', (request, res) => {
                     currentChallenge.serverChecksum,
                     expectedChecksum
                 );
-                
+
                 // Step 3: Send verification response
                 const verifyResponse = await fetch('/api/verification/verify', {
                     method: 'POST',
@@ -398,9 +398,9 @@ app.get('/', (request, res) => {
                         expectedChecksum
                     })
                 });
-                
+
                 const verifyData = await verifyResponse.json();
-                
+
                 if (verifyData.success) {
                     showStatus('Verification completed successfully!', 'success');
                     showResults(verifyData.verification);
@@ -410,17 +410,17 @@ app.get('/', (request, res) => {
                         showResults(verifyData.details);
                     }
                 }
-                
+
             } catch (error) {
                 showStatus(\`Verification error: \${error.message}\`, 'error');
             }
         }
-        
+
         async function generateClientSignature(nonce, serverChecksum, expectedChecksum) {
             // In a real implementation, this would use WebCrypto API
             // For demo purposes, we'll simulate the signature generation
             const data = nonce + serverChecksum + expectedChecksum;
-            
+
             // Simple hash simulation (in production, use proper crypto)
             const encoder = new TextEncoder();
             const dataBuffer = encoder.encode(data);
@@ -428,13 +428,13 @@ app.get('/', (request, res) => {
             const hashArray = Array.from(new Uint8Array(hashBuffer));
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
-        
+
         async function exportData() {
             try {
                 showStatus('Exporting verification data...', 'info');
                 const response = await fetch('/api/verification/export');
                 const data = await response.json();
-                
+
                 if (data.success) {
                     showStatus('Verification data exported successfully', 'success');
                     showResults(data.export);
@@ -445,7 +445,7 @@ app.get('/', (request, res) => {
                 showStatus(\`Export error: \${error.message}\`, 'error');
             }
         }
-        
+
         // Auto-load status on page load
         window.addEventListener('load', getStatus);
     </script>
