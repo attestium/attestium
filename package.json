@@ -75,15 +75,15 @@
   },
   "scripts": {
     "build": "node build.mjs",
-    "c8": "c8 --reporter=text --reporter=html node --test",
-    "coverage": "c8 --reporter=text --reporter=html --reporter=json-summary node --test",
+    "c8": "c8 --reporter=text --reporter=html --reporter=lcov node --test",
+    "coverage": "c8 --reporter=text --reporter=html --reporter=lcov --reporter=json-summary node --test",
     "lint": "fixpack && remark . -qfo && xo --fix",
     "pre-commit": "lint-staged",
     "prepare": "husky",
     "prepublishOnly": "pnpm run build",
     "pretest": "pnpm run lint",
     "test": "node --test",
-    "test-coverage": "c8 --reporter=text --reporter=html --reporter=json-summary node --test"
+    "test-coverage": "c8 --reporter=text --reporter=html --reporter=lcov --reporter=json-summary node --test"
   },
   "types": "lib/index.d.ts",
   "xo": {

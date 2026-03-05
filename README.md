@@ -2,11 +2,12 @@
 
 ![Attestium Logo](./assets/avatar.png)
 
-[![CI](https://github.com/attestium/attestium/actions/workflows/ci.yml/badge.svg)](https://github.com/attestium/attestium/actions/workflows/ci.yml)
-[![npm version](https://badge.fury.io/js/attestium.svg)](https://badge.fury.io/js/attestium)
+[![CI](https://github.com/attestium/attestium.com/actions/workflows/ci.yml/badge.svg)](https://github.com/attestium/attestium.com/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/attestium/attestium.com/badge.svg)](https://coveralls.io/github/attestium/attestium.com)
+[![npm version](https://img.shields.io/npm/v/attestium.svg)](https://www.npmjs.com/package/attestium)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
-[![Security Audit](https://img.shields.io/badge/security-audited-green.svg)](https://github.com/attestium/attestium/actions)
+[![Security Audit](https://img.shields.io/badge/security-audited-green.svg)](https://github.com/attestium/attestium.com/actions)
 [![TPM 2.0](https://img.shields.io/badge/TPM-2.0-blue.svg)](https://trustedcomputinggroup.org/)
 
 📄 **[Read the Technical Whitepaper](./attestium-whitepaper.pdf)** — 16 pages covering our architecture, security model, TPM 2.0 integration, and adoption roadmap.
