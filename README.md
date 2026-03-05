@@ -30,10 +30,10 @@ Attestium is a **runtime code verification and integrity monitoring library** th
 
 Just as chemical elements have unique properties and atomic structures, Attestium provides:
 
-* **Symbol**: `At` (for Attestation)
-* **Atomic Properties**: Stable verification states, tamper-reactive bonds
-* **Chemical Reactions**: Cryptographic verification processes
-* **Molecular Structure**: File checksums linked by cryptographic bonds
+*   **Symbol**: `At` (for Attestation)
+*   **Atomic Properties**: Stable verification states, tamper-reactive bonds
+*   **Chemical Reactions**: Cryptographic verification processes
+*   **Molecular Structure**: File checksums linked by cryptographic bonds
 
 ## 🎯 **Why Attestium Exists**
 
@@ -41,17 +41,17 @@ Just as chemical elements have unique properties and atomic structures, Attestiu
 
 In today's world of cloud computing and distributed systems, users need to trust that:
 
-* The code running on servers matches what's published in repositories
-* No unauthorized modifications have been made to running applications
-* Third parties can independently verify system integrity
-* Changes to code are immediately detectable
+*   The code running on servers matches what's published in repositories
+*   No unauthorized modifications have been made to running applications
+*   Third parties can independently verify system integrity
+*   Changes to code are immediately detectable
 
 ### **Research Background**
 
 Attestium was developed based on extensive research into existing solutions and their limitations. This research was inspired by:
 
-* **[Forward Email Technical Whitepaper](https://forwardemail.net/technical-whitepaper.pdf)** - Requirements for transparent, auditable email infrastructure
-* **[Mullvad System Transparency](https://mullvad.net/media/system-transparency-rev4.pdf)** - Approaches to system transparency and verification
+*   **[Forward Email Technical Whitepaper](https://forwardemail.net/technical-whitepaper.pdf)** - Requirements for transparent, auditable email infrastructure
+*   **[Mullvad System Transparency](https://mullvad.net/media/system-transparency-rev4.pdf)** - Approaches to system transparency and verification
 
 > \[!NOTE]
 > **Research Foundation**: Attestium addresses the specific need for runtime code verification that emerged from Forward Email's commitment to transparency and Mullvad's pioneering work in system transparency.
@@ -95,45 +95,45 @@ Based on our comprehensive analysis, we identified critical gaps that existing s
 
 #### **1. Runtime Application Verification Gap**
 
-* **Problem**: Most solutions focus on build-time, deployment-time, or infrastructure-level verification
-* **Impact**: Cannot detect runtime tampering or code injection attacks
-* **Attestium Solution**: Continuous runtime monitoring with real-time verification
+*   **Problem**: Most solutions focus on build-time, deployment-time, or infrastructure-level verification
+*   **Impact**: Cannot detect runtime tampering or code injection attacks
+*   **Attestium Solution**: Continuous runtime monitoring with real-time verification
 
 #### **2. Third-Party Verification API Gap**
 
-* **Problem**: Existing solutions lack standardized APIs for external verification
-* **Impact**: Difficult for auditors to independently verify system integrity
-* **Attestium Solution**: RESTful APIs with nonce-based challenge-response protocols
+*   **Problem**: Existing solutions lack standardized APIs for external verification
+*   **Impact**: Difficult for auditors to independently verify system integrity
+*   **Attestium Solution**: RESTful APIs with nonce-based challenge-response protocols
 
 #### **3. Developer Experience Gap**
 
-* **Problem**: Hardware-based solutions require specialized knowledge and infrastructure
-* **Impact**: High barrier to adoption for typical web applications
-* **Attestium Solution**: Simple npm package with software fallback for development
+*   **Problem**: Hardware-based solutions require specialized knowledge and infrastructure
+*   **Impact**: High barrier to adoption for typical web applications
+*   **Attestium Solution**: Simple npm package with software fallback for development
 
 #### **4. Node.js Ecosystem Gap**
 
-* **Problem**: Most solutions are language-agnostic or focused on other platforms
-* **Impact**: Poor integration with Node.js applications and workflows
-* **Attestium Solution**: Native Node.js integration with runtime hooks
+*   **Problem**: Most solutions are language-agnostic or focused on other platforms
+*   **Impact**: Poor integration with Node.js applications and workflows
+*   **Attestium Solution**: Native Node.js integration with runtime hooks
 
 #### **5. Cost and Complexity Gap**
 
-* **Problem**: Enterprise solutions are expensive; hardware solutions are complex
-* **Impact**: Unsuitable for many applications and organizations
-* **Attestium Solution**: Free, open-source, software-only implementation
+*   **Problem**: Enterprise solutions are expensive; hardware solutions are complex
+*   **Impact**: Unsuitable for many applications and organizations
+*   **Attestium Solution**: Free, open-source, software-only implementation
 
 #### **6. Granular Monitoring Gap**
 
-* **Problem**: File integrity tools monitor files; application tools monitor performance
-* **Impact**: No solution provides granular application code verification
-* **Attestium Solution**: File categorization with application-aware monitoring
+*   **Problem**: File integrity tools monitor files; application tools monitor performance
+*   **Impact**: No solution provides granular application code verification
+*   **Attestium Solution**: File categorization with application-aware monitoring
 
 #### **7. Continuous Verification Gap**
 
-* **Problem**: Most solutions provide point-in-time verification
-* **Impact**: Cannot detect tampering between verification intervals
-* **Attestium Solution**: Continuous background verification with configurable intervals
+*   **Problem**: Most solutions provide point-in-time verification
+*   **Impact**: Cannot detect tampering between verification intervals
+*   **Attestium Solution**: Continuous background verification with configurable intervals
 
 ## 🧪 **Attestium's Unique Approach**
 
@@ -141,39 +141,39 @@ Attestium addresses these gaps by providing:
 
 ### **✅ Runtime Code Verification**
 
-* Continuous monitoring of running application code
-* Real-time detection of unauthorized modifications
-* In-memory integrity checking capabilities
+*   Continuous monitoring of running application code
+*   Real-time detection of unauthorized modifications
+*   In-memory integrity checking capabilities
 
 ### **✅ Third-Party Verification APIs**
 
-* RESTful APIs for external verification
-* Nonce-based challenge-response protocols
-* Cryptographically signed verification reports
+*   RESTful APIs for external verification
+*   Nonce-based challenge-response protocols
+*   Cryptographically signed verification reports
 
 ### **✅ Developer-Friendly Design**
 
-* Simple npm package installation
-* Minimal configuration requirements
-* Integration with existing Node.js applications
+*   Simple npm package installation
+*   Minimal configuration requirements
+*   Integration with existing Node.js applications
 
 ### **✅ Granular File Categorization**
 
-* Intelligent categorization of source code, tests, configuration, and dependencies
-* Customizable include/exclude patterns
-* Git integration for baseline establishment
+*   Intelligent categorization of source code, tests, configuration, and dependencies
+*   Customizable include/exclude patterns
+*   Git integration for baseline establishment
 
 ### **✅ Cryptographic Proof Generation**
 
-* SHA-256 checksums for all monitored files
-* Signed verification reports
-* Tamper-evident audit trails
+*   SHA-256 checksums for all monitored files
+*   Signed verification reports
+*   Tamper-evident audit trails
 
 ### **✅ Modern Workflow Integration**
 
-* Git commit hash tracking
-* CI/CD pipeline integration
-* Cosmiconfig-based configuration management
+*   Git commit hash tracking
+*   CI/CD pipeline integration
+*   Cosmiconfig-based configuration management
 
 ## 🔒 **Tamper-Proofing and Security Considerations**
 
@@ -187,22 +187,22 @@ Attestium employs several innovative approaches to address runtime tampering:
 
 #### **1. Tamper-Resistant Memory Protection**
 
-* **VM-Based Isolation**: Critical verification logic runs in isolated VM contexts
-* **Proxy Protection**: Function interception prevents runtime modification of verification methods
-* **Original Function Capture**: Core JavaScript functions are captured before they can be overridden
+*   **VM-Based Isolation**: Critical verification logic runs in isolated VM contexts
+*   **Proxy Protection**: Function interception prevents runtime modification of verification methods
+*   **Original Function Capture**: Core JavaScript functions are captured before they can be overridden
 
 #### **2. External Validation Network**
 
-* **GitHub Release Verification**: Compares local code against signed GitHub releases
-* **Multi-Source Validation**: Cross-references multiple trusted external sources
-* **Distributed Challenge System**: External services provide unpredictable validation challenges
+*   **GitHub Release Verification**: Compares local code against signed GitHub releases
+*   **Multi-Source Validation**: Cross-references multiple trusted external sources
+*   **Distributed Challenge System**: External services provide unpredictable validation challenges
 
 #### **3. Continuous Integrity Monitoring**
 
-* **Real-Time Checksums**: Continuous validation of file and memory integrity
-* **Behavioral Analysis**: Monitors for suspicious modification patterns
-* **Audit Trail**: Tamper-evident logging of all verification activities
-* **[Audit Status Integration](https://auditstatus.com)**: Enterprise-grade continuous monitoring with automated server auditing, webhook notifications, and TPM-backed verification
+*   **Real-Time Checksums**: Continuous validation of file and memory integrity
+*   **Behavioral Analysis**: Monitors for suspicious modification patterns
+*   **Audit Trail**: Tamper-evident logging of all verification activities
+*   **[Audit Status Integration](https://auditstatus.com)**: Enterprise-grade continuous monitoring with automated server auditing, webhook notifications, and TPM-backed verification
 
 ### **Limitations and Considerations**
 
@@ -210,27 +210,27 @@ While Attestium provides significant protection against tampering, it's importan
 
 #### **The Verification Paradox**
 
-* **Core Challenge**: How do you prove integrity when an attacker controls the verification system?
-* **Mitigation**: External validation and distributed verification reduce single points of failure
-* **Reality**: Perfect tamper-proofing may require hardware-based solutions (TPM, HSM, etc.)
+*   **Core Challenge**: How do you prove integrity when an attacker controls the verification system?
+*   **Mitigation**: External validation and distributed verification reduce single points of failure
+*   **Reality**: Perfect tamper-proofing may require hardware-based solutions (TPM, HSM, etc.)
 
 #### **Practical Security Model**
 
 Attestium is designed to:
 
-* ✅ **Detect casual tampering** and unauthorized modifications
-* ✅ **Raise the bar significantly** for sophisticated attacks
-* ✅ **Provide audit trails** for forensic analysis
-* ✅ **Enable external verification** by independent parties
-* ⚠️ **Cannot prevent** determined attackers with root access and unlimited time
+*   ✅ **Detect casual tampering** and unauthorized modifications
+*   ✅ **Raise the bar significantly** for sophisticated attacks
+*   ✅ **Provide audit trails** for forensic analysis
+*   ✅ **Enable external verification** by independent parties
+*   ⚠️ **Cannot prevent** determined attackers with root access and unlimited time
 
 ### **Best Practices for Maximum Security**
 
-1. **Deploy in Controlled Environments**: Use containers, restricted user accounts, and access controls
-2. **Enable External Monitoring**: Set up independent verification nodes
-3. **Regular Baseline Updates**: Keep verification baselines current with legitimate changes
-4. **Combine with Other Security Measures**: Use alongside firewalls, intrusion detection, and access logging
-5. **Monitor Verification APIs**: Watch for unusual patterns in verification requests
+1.  **Deploy in Controlled Environments**: Use containers, restricted user accounts, and access controls
+2.  **Enable External Monitoring**: Set up independent verification nodes
+3.  **Regular Baseline Updates**: Keep verification baselines current with legitimate changes
+4.  **Combine with Other Security Measures**: Use alongside firewalls, intrusion detection, and access logging
+5.  **Monitor Verification APIs**: Watch for unusual patterns in verification requests
 
 ## 🔐 **TPM 2.0 Hardware-Backed Security**
 
@@ -247,19 +247,19 @@ Attestium **requires TPM 2.0** for production deployments where maximum security
 
 When running in software-only mode, Attestium is vulnerable to several sophisticated attack vectors:
 
-* **Runtime Patching**: An attacker with root access can modify the Node.js runtime or kernel to bypass Attestium's checks.
-* **Memory Manipulation**: Direct memory access can alter verification logic or cryptographic keys.
-* **Filesystem Tampering**: An attacker can modify files on disk and then intercept filesystem calls to return the original content to Attestium.
-* **Verification Bypass**: The entire verification process can be mocked or disabled by a sufficiently privileged attacker.
+*   **Runtime Patching**: An attacker with root access can modify the Node.js runtime or kernel to bypass Attestium's checks.
+*   **Memory Manipulation**: Direct memory access can alter verification logic or cryptographic keys.
+*   **Filesystem Tampering**: An attacker can modify files on disk and then intercept filesystem calls to return the original content to Attestium.
+*   **Verification Bypass**: The entire verification process can be mocked or disabled by a sufficiently privileged attacker.
 
 #### **How TPM 2.0 Solves These Problems**
 
 TPM 2.0 provides a hardware root of trust that mitigates these attacks:
 
-* **Hardware-Protected Keys**: Cryptographic keys are stored in the TPM chip and cannot be extracted.
-* **Measured Boot**: The TPM measures the entire boot process, creating a cryptographic record of the system state.
-* **Sealed Storage**: Data can be encrypted and "sealed" to a specific system state. It can only be unsealed if the system is in the exact same state.
-* **Remote Attestation**: The TPM can provide a signed quote of its internal state, allowing a remote party to verify the system's integrity.
+*   **Hardware-Protected Keys**: Cryptographic keys are stored in the TPM chip and cannot be extracted.
+*   **Measured Boot**: The TPM measures the entire boot process, creating a cryptographic record of the system state.
+*   **Sealed Storage**: Data can be encrypted and "sealed" to a specific system state. It can only be unsealed if the system is in the exact same state.
+*   **Remote Attestation**: The TPM can provide a signed quote of its internal state, allowing a remote party to verify the system's integrity.
 
 ### **TPM 2.0 Architecture in Attestium**
 
@@ -300,10 +300,10 @@ block-beta
 
 Attestium leverages these TPM 2.0 features to provide a secure verification environment:
 
-* **Key Management**: Attestium's cryptographic keys are generated and stored in the TPM.
-* **Integrity Verification**: The TPM is used to verify the integrity of the boot process and the running system.
-* **Sealed Data**: Verification baselines are sealed to the TPM, preventing tampering.
-* **Hardware Random**: The TPM's hardware random number generator is used for cryptographic operations.
+*   **Key Management**: Attestium's cryptographic keys are generated and stored in the TPM.
+*   **Integrity Verification**: The TPM is used to verify the integrity of the boot process and the running system.
+*   **Sealed Data**: Verification baselines are sealed to the TPM, preventing tampering.
+*   **Hardware Random**: The TPM's hardware random number generator is used for cryptographic operations.
 
 ## 🚀 **Quick Start**
 
@@ -340,10 +340,10 @@ main().catch(console.error);
 
 Attestium uses [cosmiconfig](https://github.com/cosmiconfig/cosmiconfig) for configuration. You can configure Attestium in:
 
-* `package.json` (`attestium` property)
-* `.attestiumrc.json`
-* `.attestiumrc.yml`
-* `attestium.config.js`
+*   `package.json` (`attestium` property)
+*   `.attestiumrc.json`
+*   `.attestiumrc.yml`
+*   `attestium.config.js`
 
 ### **Configuration Options**
 
@@ -376,8 +376,8 @@ For enterprise-grade continuous monitoring, automated server auditing, and real-
 
 You can integrate Audit Status with [Upptime](https://github.com/upptime/upptime) for a comprehensive uptime and integrity monitoring solution.
 
-1. **Expose an audit health endpoint** on your server. See the [health endpoint example](https://github.com/auditstatus/auditstatus/blob/main/examples/health-endpoint.js).
-2. **Add the endpoint to your `.upptimerc.yml`**:
+1.  **Expose an audit health endpoint** on your server. See the [health endpoint example](https://github.com/auditstatus/auditstatus/blob/main/examples/health-endpoint.js).
+2.  **Add the endpoint to your `.upptimerc.yml`**:
 
 ```yaml
 sites:
