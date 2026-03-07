@@ -8,7 +8,7 @@ We have made great strides with initiatives like SLSA[^slsa] and Sigstore[^sigst
 
 ## Where Existing Solutions Fall Short
 
-Before developing Attestium, we conducted extensive research into existing verification, attestation, and integrity monitoring solutions. Our analysis revealed seven critical gaps that existing solutions couldn't address for our specific requirements:
+Before developing Attestium, we conducted extensive research into existing verification, attestation, and integrity monitoring solutions. Our analysis revealed nine critical gaps that existing solutions couldn't address for our specific requirements:
 
 1. **Runtime Application Verification Gap**: Most solutions focus on build-time, deployment-time, or infrastructure-level verification. They cannot detect runtime tampering or code injection attacks.
 
@@ -24,8 +24,14 @@ Before developing Attestium, we conducted extensive research into existing verif
 
 7. **Continuous Verification Gap**: Most solutions provide point-in-time verification, which cannot detect tampering between verification intervals.
 
+8. **Process Memory Integrity Gap**: Existing tools verify files on disk, but they do not verify what is actually running in memory. An attacker who injects code via `ptrace`, writes to `/proc/<pid>/mem`, or uses `LD_PRELOAD` to hijack shared library loading will pass every file-level check because the on-disk binary is unchanged—only the in-memory copy is modified. This is the blind spot that makes fileless malware and runtime code injection so effective[^redcanary_fileless].
+
+9. **Supply Chain Provenance Gap**: Even when a package is verified against the npm registry, there is no guarantee that the published version was built from the source code in the project's public repository. An attacker with npm publish credentials can push a version that differs entirely from what's on GitHub, and no existing tool in the Node.js ecosystem detects this divergence[^npm_supply_chain].
+
 We need a solution that is holistic, layered, and developer-first. This is why we built Attestium.
 
-[^slsa]: SLSA, "Supply-chain Levels for Software Artifacts": https://slsa.dev/
-[^sigstore]: Sigstore, "A new standard for signing, verifying, and protecting software": https://www.sigstore.dev/
-[^google_bab]: Google Cloud, "Binary Authorization for Borg": https://cloud.google.com/docs/security/binary-authorization-for-borg
+[^slsa]: SLSA, "Supply-chain Levels for Software Artifacts": [https://slsa.dev/](https://slsa.dev/)
+[^sigstore]: Sigstore, "A new standard for signing, verifying, and protecting software": [https://www.sigstore.dev/](https://www.sigstore.dev/)
+[^google_bab]: Google Cloud, "Binary Authorization for Borg": [https://cloud.google.com/docs/security/binary-authorization-for-borg](https://cloud.google.com/docs/security/binary-authorization-for-borg)
+[^redcanary_fileless]: Red Canary, "Process Memory Integrity on Linux": [https://redcanary.com/blog/threat-detection/process-memory-integrity-linux/](https://redcanary.com/blog/threat-detection/process-memory-integrity-linux/)
+[^npm_supply_chain]: Socket, "Supply Chain Attacks on npm": [https://socket.dev/blog/supply-chain-attacks-on-npm](https://socket.dev/blog/supply-chain-attacks-on-npm)

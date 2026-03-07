@@ -4,6 +4,10 @@ We designed Attestium as a layered, practical, and open-source solution for veri
 
 * **Runtime Code Verification**: Continuous monitoring of running application code, real-time detection of unauthorized modifications, and in-memory integrity checking capabilities.
 
+* **Process Memory Integrity**: Direct inspection of process memory maps, executable page hashing against on-disk binaries, detection of library injection (`LD_PRELOAD`, `DYLD_INSERT_LIBRARIES`, `AppInit_DLLs`), debugger attachment monitoring, and file descriptor analysis for fileless malware indicators.
+
+* **Three-Way Release Verification**: Verification that the running binary matches the file on disk, that the file on disk matches the official upstream release (via SHASUMS for Node.js, integrity hashes for npm packages), and that the published npm version was built from the expected GitHub source commit.
+
 * **Third-Party Verification APIs**: RESTful APIs for external verification, nonce-based challenge-response protocols, and cryptographically signed verification reports.
 
 * **Developer-Friendly Design**: A simple npm package installation, minimal configuration requirements, and seamless integration with existing Node.js applications.
@@ -18,9 +22,9 @@ We designed Attestium as a layered, practical, and open-source solution for veri
 
 Our architecture consists of three layers:
 
-1. **[Attestium](https://github.com/attestium/attestium) (Core Engine)**: A Node.js library that provides the low-level primitives for verification. It interacts with the TPM for hardware-backed attestation and provides APIs for measuring running processes and file integrity.
+1. **[Attestium](https://github.com/attestium/attestium) (Core Engine)**: A Node.js library that provides the low-level primitives for verification. It interacts with the TPM for hardware-backed attestation and provides APIs for measuring running processes, file integrity, process memory integrity, and release provenance. It exports three subpath modules: the main `attestium` class for file-level verification and TPM, `attestium/process-integrity` for memory-level analysis, and `attestium/release-verification` for upstream provenance checks.
 
-2. **[Audit Status](https://github.com/auditstatus/auditstatus) (Monitoring Tool)**: A command-line tool that uses Attestium to perform periodic server checks. It's a single, self-contained binary that can be easily deployed and configured via a simple YAML file.
+2. **[Audit Status](https://github.com/auditstatus/auditstatus) (Monitoring Tool)**: A command-line tool that uses Attestium to perform periodic server checks. It's a single, self-contained binary that can be easily deployed and configured via a simple YAML file. It orchestrates all of Attestium's verification primitives—including the new process memory and release checks—into a unified audit report.
 
 3. **[Upptime](https://github.com/upptime/upptime) (Uptime Monitor)**: We extended this popular open-source uptime monitor with a new `ssh-audit` check. It connects to a remote server, runs Audit Status, and parses the results, enabling continuous, third-party verifiable attestation.
 
@@ -34,17 +38,17 @@ But this approach isn't limited to Upptime or even GitHub. The same pattern work
 
 ## The Verification Flow
 
-Our verification flow follows the IETF RATS architecture (RFC 9334)[^rats]. Upptime acts as the Relying Party, initiating an attestation request. The ssh-audit helper acts as the Verifier, connecting to the remote server and executing Audit Status, the Attester. Audit Status collects evidence from the system (TPM, /proc, filesystem), generates a report, and sends it back up the chain.
+Our verification flow follows the IETF RATS architecture (RFC 9334)[^rats]. Upptime acts as the Relying Party, initiating an attestation request. The ssh-audit helper acts as the Verifier, connecting to the remote server and executing Audit Status, the Attester. Audit Status collects evidence from the system (TPM, /proc, filesystem, process memory, upstream release hashes), generates a report, and sends it back up the chain.
 
 ```{.mermaid format=pdf}
 graph LR
     A["Relying Party<br/>(Upptime)"] -->|1. Request| B["Verifier<br/>(SSH Client)"]
     B -->|2. SSH| C["Attester<br/>(Audit Status)"]
-    C -->|3. Collect| D["/proc, TPM, FS"]
+    C -->|3. Collect| D["/proc, TPM, FS,<br/>Memory, Upstream"]
     C -->|4. Report| B
     B -->|5. Result| A
 ```
 
 This architecture provides a clean separation of concerns and a secure, flexible flow for remote verification. In the following sections, we will explore each layer in greater detail.
 
-[^rats]: H. Birkholz, et al., "Remote Attestation Procedures Architecture," IETF RFC 9334, 2022: https://datatracker.ietf.org/doc/rfc9334/
+[^rats]: H. Birkholz, et al., "Remote Attestation Procedures Architecture," IETF RFC 9334, 2022: [https://datatracker.ietf.org/doc/rfc9334/](https://datatracker.ietf.org/doc/rfc9334/)

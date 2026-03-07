@@ -13,7 +13,7 @@ pdf-mac:
 		--csl=assets/ieee.csl \
 		--variable=fontsize=11pt \
 		--variable=geometry:margin=1in \
-		--variable=linkcolor:blue \
+		--variable=linkcolor:black \
 		--variable=monofont:DejaVuSansMono \
 		--variable=monofontoptions:Scale=0.8 \
 		--highlight-style=tango \
@@ -40,7 +40,7 @@ pdf:
 		--csl=assets/ieee.csl \
 		--variable=fontsize=11pt \
 		--variable=geometry:margin=1in \
-		--variable=linkcolor:blue \
+		--variable=linkcolor:black \
 		--variable=monofont:DejaVuSansMono \
 		--variable=monofontoptions:Scale=0.8 \
 		--highlight-style=tango \
@@ -68,7 +68,7 @@ latex:
 		--standalone \
 		--variable=fontsize=11pt \
 		--variable=geometry:margin=1in \
-		--variable=linkcolor:blue \
+		--variable=linkcolor:black \
 		--variable=monofont:DejaVuSansMono \
 		--variable=monofontoptions:Scale=0.8 \
 		--highlight-style=tango \

@@ -57,6 +57,6 @@ We do plan to eventually undergo a third-party audit from one of our [recommende
 
 All of the hardening described above — the sysctl parameters, the USB whitelisting, the eight monitoring systems, the command logging — these are preventive controls. They make it harder for an attacker to do damage. But they don't answer the fundamental question: is the code running on this server right now the same code that's in our public repository?
 
-That's the gap Attestium fills. We built it because we needed it ourselves. Every measure in our Ansible playbooks is designed to prevent unauthorized changes. Attestium is designed to detect them — continuously, cryptographically, and in a way that anyone can verify.
+That's the gap Attestium fills. We built it because we needed it ourselves. Every measure in our Ansible playbooks is designed to prevent unauthorized changes. Attestium is designed to detect them — continuously, cryptographically, and in a way that anyone can verify. And with the addition of process memory integrity, we can now answer an even deeper question: is the code *actually executing in memory* the same code that's on disk? Because on a hardened server, the most dangerous attacker isn't the one who modifies files — it's the one who modifies memory.
 
 \newpage

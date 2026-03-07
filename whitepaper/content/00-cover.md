@@ -1,7 +1,7 @@
 ---
 title: "Attestium"
 author: "Nicholas Baugh"
-date: ""
+date: "First published: March 3, 2026. Last updated: March 7, 2026."
 toc: true
 toc-depth: 2
 papersize: letterpaper

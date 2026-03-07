@@ -32,6 +32,14 @@
       "import": "./lib/index.js",
       "require": "./lib/index.js",
       "types": "./lib/index.d.ts"
+    },
+    "./process-integrity": {
+      "import": "./lib/process-integrity.js",
+      "require": "./lib/process-integrity.js"
+    },
+    "./release-verification": {
+      "import": "./lib/release-verification.js",
+      "require": "./lib/release-verification.js"
     }
   },
   "files": [
@@ -52,10 +60,14 @@
     "hash",
     "integrity",
     "javascript",
+    "memory-integrity",
     "monitoring",
     "node",
+    "process-integrity",
+    "release-verification",
     "runtime",
     "security",
+    "supply-chain",
     "system-transparency",
     "tamper-proof",
     "transparency",
